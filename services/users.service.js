@@ -3,9 +3,9 @@
 const DbService = require("moleculer-db");
 const SqlAdapter = require("moleculer-db-adapter-sequelize");
 const UsersModel = require("../models/users.model");
-const loginAction = require("../actions/login");
-const createUserAction = require("../actions/createUser");
-const getUsersGlobalAction = require("../actions/getUsers");
+const loginAction = require("../actions/users/login");
+const createUserAction = require("../actions/users/createUser");
+const getUsersGlobalAction = require("../actions/users/getUsers");
 
 module.exports = {
     name: "users",

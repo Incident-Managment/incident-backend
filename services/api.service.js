@@ -13,17 +13,27 @@ module.exports = {
                 path: "/api",
                 use: [
                     cors({
-                        origin: "http://localhost:3001", // Cambia esto al origen que necesites
+                        origin: "http://localhost:3001",
                         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
                         allowedHeaders: ["Content-Type", "Authorization"],
                         credentials: true
                     })
                 ],
                 aliases: {
+                    /*USERS */
                     "POST /users/login": "users.login",
+                    'POST /users/create': 'users.createUser',
                     "GET /users/usersGlobal": "users.getUsersGlobal",
                     "GET /users": "users.list",
 					"GET /users/:id": "users.get",
+
+
+                    /*COMPANIES */
+                    "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
+
+
+                    /*ROLES */
+                    "GET /roles/getRolesGlobal": "roles.getRolesGlobal"
                 },
                 mappingPolicy: "all", // Mapea todos los métodos de acción
             }

@@ -1,12 +1,12 @@
 "use strict";
 
 const bcrypt = require("bcrypt");
-const { formattedDate } = require("../utils/dateUtils");
+const { formattedDate } = require("../../utils/dateUtils");
 
 module.exports = {
     async createUser(ctx) {
         const hashedPassword = await bcrypt.hash(ctx.params.password, 10);
-        const creation_date = formattedDate({ useUtc: true });
+        const creation_date = formattedDate();
         return this.adapter.insert({
             name: ctx.params.name,
             email: ctx.params.email,

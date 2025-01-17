@@ -28,8 +28,6 @@ function formattedDate({
 
   date = date.locale(useLocale);
 
-  date = date.add(8, 'hour');
-
   return date.format(format);
 }
 

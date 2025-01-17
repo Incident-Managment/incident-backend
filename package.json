@@ -28,13 +28,16 @@
     "dayjs": "^1.11.13",
     "ioredis": "^5.0.0",
     "jsonwebtoken": "^9.0.2",
+    "localizedFormat": "link:dayjs/plugin/localizedFormat",
     "moleculer": "^0.14.26",
     "moleculer-db": "^0.8.20",
     "moleculer-db-adapter-mongo": "^0.4.15",
     "moleculer-db-adapter-sequelize": "^0.2.18",
     "moleculer-web": "^0.10.4",
     "nats": "^2.7.1",
-    "pg": "^8.13.1"
+    "pg": "^8.13.1",
+    "timezone": "link:dayjs/plugin/timezone",
+    "utc": "link:dayjs/plugin/utc"
   },
   "engines": {
     "node": ">= 16.x.x"
