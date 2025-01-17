@@ -13,7 +13,7 @@ module.exports = {
     adapter: new SqlAdapter("postgres://localhost:5432/IncidentDB"),
     model: UsersModel,
     settings: {
-        fields: ["id", "name", "email", "password", "role_id", "company_id", "creation_date"],
+        fields: ["id", "name", "email", "password", "role_id", "company_id", "creation_date","phone_number"],
         JWT_SECRET: process.env.JWT_SECRET || "your_jwt_secret"
     },
     actions: {

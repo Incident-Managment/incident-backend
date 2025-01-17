@@ -42,6 +42,9 @@ module.exports = {
         creation_date: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
+        },
+        phone_number: {
+            type: Sequelize.STRING,
         }
     },
     options: {

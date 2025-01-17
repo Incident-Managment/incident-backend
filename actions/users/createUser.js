@@ -13,7 +13,8 @@ module.exports = {
             password: hashedPassword,
             role_id: parseInt(ctx.params.role_id, 10),
             company_id: parseInt(ctx.params.company_id, 10),
-            creation_date: creation_date
+            creation_date: creation_date,
+            phone_number: ctx.params.phone_number,
         });
     }
 };
