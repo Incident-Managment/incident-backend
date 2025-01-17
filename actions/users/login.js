@@ -11,16 +11,14 @@ module.exports = {
         const match = await bcrypt.compare(ctx.params.password, user.password);
         if (!match) throw new Error("Invalid credentials");
 
-        const token = jwt.sign({ id: user.id, email: user.email, role_id: user.role_id, company_id: user.company_id }, "secret", { expiresIn: "1h" });
         return { 
-            token,
             user: {
                 id: user.id,
                 email: user.email,
                 role_id: user.role_id,
                 company_id: user.company_id,
                 name: user.name
-            }
+            },
         };
     }
 };

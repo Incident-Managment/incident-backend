@@ -24,6 +24,7 @@ module.exports = {
                     "POST /users/login": "users.login",
                     'POST /users/create': 'users.createUser',
                     "GET /users/usersGlobal": "users.getUsersGlobal",
+                    "GET /users/getUserById/:id": "users.getUserById",
                     "GET /users": "users.list",
 					"GET /users/:id": "users.get",
 
@@ -33,7 +34,11 @@ module.exports = {
 
 
                     /*ROLES */
-                    "GET /roles/getRolesGlobal": "roles.getRolesGlobal"
+                    "GET /roles/getRolesGlobal": "roles.getRolesGlobal",
+
+                    /*MACHINES */
+                    "GET /machine_types/getMachineTypesGlobal": "machine_types.getMachineTypesGlobal",
+                    "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
                 },
                 mappingPolicy: "all", // Mapea todos los métodos de acción
             }
