@@ -7,6 +7,7 @@ const loginAction = require("../actions/users/login");
 const createUserAction = require("../actions/users/createUser");
 const getUsersGlobalAction = require("../actions/users/getUsers");
 const getUserByIdAction = require("../actions/users/getUserById");
+
 module.exports = {
     name: "users",
     mixins: [DbService],
@@ -21,5 +22,6 @@ module.exports = {
         login: loginAction.login,
         getUsersGlobal: getUsersGlobalAction.getUsersGlobal,
         getUserById: getUserByIdAction.getUserById
+        
     }
 };

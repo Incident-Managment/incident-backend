@@ -20,27 +20,34 @@ module.exports = {
                     })
                 ],
                 aliases: {
-                    /*USERS */
+                    /* USERS */
                     "POST /users/login": "users.login",
-                    'POST /users/create': 'users.createUser',
+                    "POST /users/create": "users.createUser",
                     "GET /users/usersGlobal": "users.getUsersGlobal",
                     "GET /users/getUserById/:id": "users.getUserById",
                     "GET /users": "users.list",
-					"GET /users/:id": "users.get",
+                    "GET /users/:id": "users.get",
 
-
-                    /*COMPANIES */
+                    /* COMPANIES */
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
+                    "GET /prioritiesByCompany": "priorities.getPrioritiesByCompany",
+                    "GET /statusesByCompany": "statuses.getStatusesByCompany",
+                    "GET /categoriesByCompany": "categories.getCategoriesByCompany",
+                    "GET /productionPhasesByCompany": "production_phases.getProductionPhasesByCompany",
 
-
-                    /*ROLES */
+                    /* ROLES */
                     "GET /roles/getRolesGlobal": "roles.getRolesGlobal",
 
-                    /*MACHINES */
+                    /* MACHINES */
                     "GET /machine_types/getMachineTypesGlobal": "machine_types.getMachineTypesGlobal",
                     "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
+
+                    /* INCIDENTS */
+                    "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
+                    "GET /incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
+                    
                 },
-                mappingPolicy: "all", // Mapea todos los métodos de acción
+                mappingPolicy: "all",
             }
         ],
         assets: {
