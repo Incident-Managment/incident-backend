@@ -13,7 +13,7 @@ module.exports = {
                 path: "/api",
                 use: [
                     cors({
-                        origin: "http://localhost:3001",
+                        origin: true,
                         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
                         allowedHeaders: ["Content-Type", "Authorization"],
                         credentials: true
@@ -45,7 +45,6 @@ module.exports = {
                     /* INCIDENTS */
                     "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
                     "GET /incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
-                    
                 },
                 mappingPolicy: "all",
             }
