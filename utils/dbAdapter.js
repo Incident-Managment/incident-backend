@@ -1,15 +1,6 @@
 require('dotenv').config();
 const SqlAdapter = require("moleculer-db-adapter-sequelize");
 
-const {
-    DB_CONNECTION,
-    DB_HOST,
-    DB_PORT,
-    DB_DATABASE,
-    DB_USERNAME,
-    DB_PASSWORD
-} = process.env;
-
-const adapter = new SqlAdapter(`${DB_CONNECTION}://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_DATABASE}`);
+const adapter = new SqlAdapter("postgres://adminsp:4SxYdhnha3g6uhgndTvD@178.16.142.77:5432/incidentdb");
 
 module.exports = adapter;
