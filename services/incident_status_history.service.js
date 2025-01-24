@@ -2,7 +2,7 @@
 
 const DbService = require("moleculer-db");
 const adapter = require("../utils/dbAdapter");
-const getIncidentStatusHistoryAction = require("../actions/Incidents/GetIncidentStatusHistory");
+const getIncidentStatusHistoryAction = require("../actions/Incidents/getIncidentStatusHistory.js");
 const incidentStatusHistoryModel = require("../models/incident_status_history.model");
 
 module.exports = {
