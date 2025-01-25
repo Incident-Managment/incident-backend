@@ -20,24 +20,26 @@
   "devDependencies": {
     "jest": "^27.5.1",
     "jest-cli": "^27.5.1",
-    "moleculer-repl": "^0.7.3"
+    "moleculer-repl": "^0.7.4"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
-    "ioredis": "^5.0.0",
+    "dotenv": "^16.4.7",
+    "ioredis": "^5.4.2",
     "jsonwebtoken": "^9.0.2",
-    "localizedFormat": "link:dayjs/plugin/localizedFormat",
-    "moleculer": "^0.14.26",
-    "moleculer-db": "^0.8.20",
-    "moleculer-db-adapter-mongo": "^0.4.15",
+    "localizedFormat": "link:dayjs\\plugin\\localizedFormat",
+    "moleculer": "^0.14.35",
+    "moleculer-db": "^0.8.26",
+    "moleculer-db-adapter-mongo": "^0.4.21",
     "moleculer-db-adapter-sequelize": "^0.2.18",
-    "moleculer-web": "^0.10.4",
-    "nats": "^2.7.1",
+    "moleculer-web": "^0.10.7",
+    "nats": "^2.29.1",
     "pg": "^8.13.1",
-    "timezone": "link:dayjs/plugin/timezone",
-    "utc": "link:dayjs/plugin/utc"
+    "timezone": "link:dayjs\\plugin\\timezone",
+    "twilio": "^5.4.2",
+    "utc": "link:dayjs\\plugin\\utc"
   },
   "engines": {
     "node": ">= 16.x.x"
