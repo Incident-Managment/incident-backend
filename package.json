@@ -27,11 +27,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
-<<<<<<< HEAD
     "ioredis": "^5.0.0",
-=======
-    "ioredis": "^5.4.2",
->>>>>>> c5cdd05
     "jsonwebtoken": "^9.0.2",
     "localizedFormat": "link:dayjs\\plugin\\localizedFormat",
     "moleculer": "^0.14.35",
