@@ -1,0 +1,35 @@
+on:
+  push:
+    branches:
+      - main  # Se activará cuando haya un push a la rama 'main'
+  pull_request:
+    branches:
+      - main  # También se activará para pull requests hacia 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Usamos Ubuntu como entorno de ejecución
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3  # Esta acción obtiene el código del repositorio
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3  # Configura Node.js (ajusta la versión según lo necesites)
+      with:
+        node-version: '18'  # Ajusta a la versión que estás usando en tu proyecto
+
+    - name: Install dependencies
+      run: pnpm install  # Instala las dependencias (ajusta si usas yarn u otro gestor)
+
+    - name: Run tests
+      run: pnpm test  # Ejecuta los tests de tu proyecto
+
+    - name: Build application (si es necesario)
+      run: pnpm run build  # Ejecuta el comando de build, ajusta según tu proyecto
+
+    - name: Deploy (opcional)
+      run: |
+        echo "Aquí puedes agregar tu script de despliegue"
+        # Ejemplo de despliegue, puedes agregar el código para tu despliegue, 
+        # ya sea en servidores o plataformas como Heroku, AWS, etc.
