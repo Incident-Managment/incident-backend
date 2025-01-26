@@ -31,7 +31,7 @@ jobs:
       run: pnpm test
 
     - name: Build application (si es necesario)
-      run: pnpm run build
+      run: pnpm build
 
     - name: Deploy (opcional)
       run: |

@@ -6,6 +6,7 @@
     "dev": "moleculer-runner --repl --hot services/**/*.service.js",
     "start": "moleculer-runner",
     "cli": "moleculer connect NATS",
+    "build": "echo 'No build required for this project.'",
     "ci": "jest --watch",
     "test": "jest --coverage",
     "dc:up": "docker-compose up --build -d",
