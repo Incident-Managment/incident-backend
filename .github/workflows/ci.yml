@@ -30,9 +30,20 @@ jobs:
     - name: Run tests
       run: pnpm test
 
-    - name: Build application (si es necesario)
+    - name: Build application
       run: pnpm build
 
-    - name: Deploy (opcional)
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Esto asegura que el paso "build" se ejecute primero
+
+    steps:
+    - name: Acceso SSH y despliegue
       run: |
-        echo "Aquí puedes agregar tu script de despliegue"
+        sshpass -p "_HPH24@Assh" ssh -o StrictHostKeyChecking=no root@178.16.142.77 << EOF
+          cd /home/incidentstream-back/htdocs/incident-backend
+          git pull origin main
+        EOF
+      env:
+        SSHPASS: _HPH24@Assh
+      shell: bash
