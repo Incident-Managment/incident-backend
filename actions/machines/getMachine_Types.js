@@ -1,9 +1,7 @@
 "use strict";
 
 module.exports = {
-    getMachineTypesGlobal: {
-        rest: "GET /machine_types",
-        async handler(ctx) {
+    async getMachineTypesGlobal (ctx)  {
             try {
                 const machine_types = await this.adapter.find();
                 return machine_types;
@@ -11,5 +9,4 @@ module.exports = {
                 throw new Error("Failed to fetch users");
             }
         }
-    }
-};
+    };

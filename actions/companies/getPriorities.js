@@ -1,9 +1,7 @@
 "use strict";
 
 module.exports = {
-    getPrioritiesByCompany: {
-        rest: "GET /prioritiesByCompany",
-        async handler(ctx) {
+    async getPrioritiesByCompany (ctx) {
             const companyId = ctx.params.companyId;
             if (!companyId) {
                 throw new Error("Company ID is required");
@@ -26,5 +24,4 @@ module.exports = {
                 throw new Error("Failed to fetch priorities by company");
             }
         }
-    }
-};
+    };
