@@ -7,7 +7,7 @@ module.exports = {
     async createUser(ctx) {
         const hashedPassword = await bcrypt.hash(ctx.params.password, 10);
         const creation_date = formattedDate();
-        const newUser= await this.adapter.insert({
+        const newUser = await this.adapter.insert({
             name: ctx.params.name,
             email: ctx.params.email,
             password: hashedPassword,
@@ -16,9 +16,9 @@ module.exports = {
             creation_date: creation_date,
             phone_number: ctx.params.phone_number,
         });
-        const message='Bienvenido a la plataforma';
-        const phone_number= "+526643676084";
-        await ctx.broker.emit('send.sms', {to: phone_number, body: message});
+        const message = 'Bienvenido a la plataforma';
+        const phone_number = ctx.params.phone_number;
+        await ctx.broker.emit('send.sms', { to: phone_number, body: message });
 
         return newUser;
     }

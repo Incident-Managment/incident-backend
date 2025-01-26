@@ -3,6 +3,7 @@
 const DbService = require("moleculer-db");
 const adapter = require("../utils/dbAdapter");
 const getIncidentsByCompanyIdAction = require("../actions/Incidents/getIncidentsByCompany");
+const createIncidentAction = require("../actions/Incidents/createIncident");
 const incidentsModel = require("../models/incidents.model");
 
 module.exports = {
@@ -15,5 +16,6 @@ module.exports = {
     },
     actions: {
         getIncidentsByCompany: getIncidentsByCompanyIdAction.getIncidentsByCompany,
+        createIncident: createIncidentAction.createIncident
     }
 };

@@ -72,6 +72,9 @@ module.exports = {
                 key: 'id'
             }
         },
+        image_cloudinary: {
+            type: Sequelize.JSON
+        },
         creation_date: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW

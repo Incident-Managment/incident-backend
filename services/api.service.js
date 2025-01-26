@@ -45,6 +45,7 @@ module.exports = {
                     /* INCIDENTS */
                     "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
                     "GET /incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
+                    "POST /incidents/create": "incidents.createIncident",
                 },
                 mappingPolicy: "all",
             }
