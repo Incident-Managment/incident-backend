@@ -38,12 +38,13 @@ jobs:
     needs: build  # Esto asegura que el paso "build" se ejecute primero
 
     steps:
-    - name: Acceso SSH y despliegue
-      run: |
-        sshpass -p "_HPH24@Assh" ssh -o StrictHostKeyChecking=no root@178.16.142.77 << EOF
-          cd /home/incidentstream-back/htdocs/incident-backend
-          git pull origin main
-        EOF
-      env:
-        SSHPASS: _HPH24@Assh
-      shell: bash
+        - name: Acceso SSH y despliegue
+          run: |
+            sshpass -p "_HPH24@Assh" ssh -o StrictHostKeyChecking=no root@178.16.142.77 << EOF
+              cd /home/incidentstream-back/htdocs/incident-backend
+              git pull origin main
+              pnpm install
+            EOF
+          env:
+            SSHPASS: _HPH24@Assh
+          shell: bash
