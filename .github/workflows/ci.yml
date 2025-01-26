@@ -1,3 +1,5 @@
+name: CI
+
 on:
   push:
     branches:
@@ -19,8 +21,11 @@ jobs:
       with:
         node-version: '18'  # Ajusta a la versión que estás usando en tu proyecto
 
+    - name: Install pnpm
+      run: npm install -g pnpm  # Instala pnpm globalmente
+
     - name: Install dependencies
-      run: pnpm install  # Instala las dependencias (ajusta si usas yarn u otro gestor)
+      run: pnpm install  # Instala las dependencias
 
     - name: Run tests
       run: pnpm test  # Ejecuta los tests de tu proyecto
