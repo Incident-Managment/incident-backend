@@ -85,7 +85,8 @@ module.exports = {
         }
     },
     options: {
-        timestamps: false
+        timestamps: false,
+        logging: false // Desactiva los logs
     },
     associations: function(models) {
         this.belongsTo(models.statuses, { foreignKey: 'status_id', as: 'status' });

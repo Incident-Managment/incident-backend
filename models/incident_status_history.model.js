@@ -59,8 +59,8 @@ module.exports = {
         }
     },
     options: {
-        tableName: 'incident_status_history', // Specify the correct table name
-        timestamps: false
+        timestamps: false,
+        logging: false // Desactiva los logs
     },
     associations: function(models) {
         this.belongsTo(models.incidents, { foreignKey: 'incident_id', as: 'incident' });

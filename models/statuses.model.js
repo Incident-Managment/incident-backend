@@ -23,6 +23,7 @@ module.exports = {
         }
     },
     options: {
-        timestamps: false
+        timestamps: false,
+        logging: false // Desactiva los logs
     },
 };
