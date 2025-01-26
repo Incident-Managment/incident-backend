@@ -46,6 +46,10 @@ module.exports = {
                     "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
                     "GET /incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
                     "POST /incidents/create": "incidents.createIncident",
+
+
+                    /*EXTERNAL*/
+                    "POST /slack/sendMessage": "slack.sendMessage",
                 },
                 mappingPolicy: "all",
             }
