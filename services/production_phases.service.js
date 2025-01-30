@@ -14,6 +14,6 @@ module.exports = {
         fields: ["id", "name", "phase_order", "company_id", "is_active", "creation_date"],
     },
     actions: {
-        getProductionPhasesByCompany: getProductionPhasesByCompanyIdAction.getProductionPhasesByCompany
+        getProductionPhasesByCompany: getProductionPhasesByCompanyIdAction.getProductionPhasesByCompany,
     }
 };
