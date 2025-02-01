@@ -34,13 +34,13 @@ module.exports = {
                     "GET /statusesByCompany": "statuses.getStatusesByCompany",
                     "GET /categoriesByCompany": "categories.getCategoriesByCompany",
                     "GET /productionPhasesByCompany": "production_phases.getProductionPhasesByCompany",
-                    "GET /phasesMachine": "phases_machines.getPhasesMachine",
                     /* ROLES */
                     "GET /roles/getRolesGlobal": "roles.getRolesGlobal",
 
                     /* MACHINES */
                     "GET /machine_types/getMachineTypesGlobal": "machine_types.getMachineTypesGlobal",
                     "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
+                    "GET /machines/getMachinesByCompany": "machines.getMachinesByCompany",
 
                     /* INCIDENTS */
                     "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
