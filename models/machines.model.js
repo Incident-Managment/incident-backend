@@ -21,6 +21,14 @@ module.exports = {
                 key: 'id'
             }
         },
+        production_phase_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'production_phases',
+                key: 'id'
+            }
+        },
         company_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
