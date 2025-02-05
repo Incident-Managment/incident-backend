@@ -8,7 +8,11 @@ module.exports = {
         }
 
         try {
-            const productionPhases = await this.adapter.find({ query: { company_id: companyId } });
+            const productionPhases = await this.adapter.find({
+                query: { company_id: companyId },
+                sort: { phase_order: 1 } // Orden ascendente (1 = ASC, -1 = DESC)
+            });
+
             return productionPhases;
         } catch (error) {
             console.error("Error fetching production phases by company:", {
@@ -16,10 +20,12 @@ module.exports = {
                 stack: error.stack,
                 companyId: companyId
             });
+
             if (error.message.includes("Service unavailable")) {
                 ctx.meta.$statusCode = 503;
                 throw new Error("ServiceUnavailableError: Service unavailable");
             }
+
             ctx.meta.$statusCode = 500;
             throw new Error("Failed to fetch production phases by company");
         }
