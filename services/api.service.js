@@ -34,6 +34,7 @@ module.exports = {
                     "GET /statusesByCompany": "statuses.getStatusesByCompany",
                     "GET /categoriesByCompany": "categories.getCategoriesByCompany",
                     "GET /productionPhasesByCompany": "production_phases.getProductionPhasesByCompany",
+                    "POST /updateProductionPhase": "production_phases.updateProductionPhase",
                     /* ROLES */
                     "GET /roles/getRolesGlobal": "roles.getRolesGlobal",
 
