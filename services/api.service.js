@@ -31,7 +31,7 @@ module.exports = {
                     /* COMPANIES */
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
                     "GET /prioritiesByCompany": "priorities.getPrioritiesByCompany",
-                    "GET /statusesByCompany": "statuses.getStatusesByCompany",
+                    "GET /statuses/getStatuses": "statuses.getStatuses",
                     "GET /categoriesByCompany": "categories.getCategoriesByCompany",
                     "GET /productionPhasesByCompany": "production_phases.getProductionPhasesByCompany",
                     "POST /updateProductionPhase": "production_phases.updateProductionPhase",
@@ -45,10 +45,12 @@ module.exports = {
 
                     /* INCIDENTS */
                     "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
-                    "GET /incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
+                    "GET /incidents/incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
                     "POST /incidents/create": "incidents.createIncident",
-
-
+                    "GET /incidents/countIncidentsByCompany": "incidents.countIncidentsByCompany",
+                    "GET /incidents/countIncidentsResolvedByCompany": "incidents.countIncidentsResolvedByCompany",
+                    "GET /incidents/averageResolutionTimeByCompany": "incidents.averageResolutionTimeByCompany",
+                    "GET /incidents/incidentEfficiencyByCompany": "incidents.incidentEfficiencyByCompany",
                     /*EXTERNAL*/
                     "POST /slack/sendMessage": "slack.sendMessage",
                 },

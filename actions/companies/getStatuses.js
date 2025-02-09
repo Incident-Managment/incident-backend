@@ -1,27 +1,21 @@
 "use strict";
 
 module.exports = {
-    async getStatusesByCompany(ctx) {
-        const companyId = ctx.params.companyId;
-        if (!companyId) {
-            throw new Error("Company ID is required");
-        }
-
+    async getStatuses(ctx) {
         try {
-            const statuses = await this.adapter.find({ query: { company_id: companyId } });
+            const statuses = await this.adapter.find({});
             return statuses;
         } catch (error) {
-            console.error("Error fetching statuses by company:", {
+            console.error("Error fetching statuses:", {
                 message: error.message,
-                stack: error.stack,
-                companyId: companyId
+                stack: error.stack
             });
             if (error.message.includes("Service unavailable")) {
                 ctx.meta.$statusCode = 503;
                 throw new Error("ServiceUnavailableError: Service unavailable");
             }
             ctx.meta.$statusCode = 500;
-            throw new Error("Failed to fetch statuses by company");
+            throw new Error("Failed to fetch statuses");
         }
     }
 };
