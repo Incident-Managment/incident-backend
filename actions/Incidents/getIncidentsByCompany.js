@@ -114,7 +114,7 @@ module.exports = {
             return incidentsWithDetails;
         } catch (error) {
             console.error("Error fetching incidents by company:", error);
-            throw new Error("Failed to fetch incidents");
+            throw new Error(`Failed to fetch incidents: ${error.message}`);
         }
     }
 };
