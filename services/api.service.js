@@ -51,6 +51,10 @@ module.exports = {
                     "GET /incidents/countIncidentsResolvedByCompany": "incidents.countIncidentsResolvedByCompany",
                     "GET /incidents/averageResolutionTimeByCompany": "incidents.averageResolutionTimeByCompany",
                     "GET /incidents/incidentEfficiencyByCompany": "incidents.incidentEfficiencyByCompany",
+
+                    /* TASKS */
+                    "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
+
                     /*EXTERNAL*/
                     "POST /slack/sendMessage": "slack.sendMessage",
                 },
