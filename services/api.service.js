@@ -44,7 +44,7 @@ module.exports = {
                     "GET /machines/getMachinesByCompany": "machines.getMachinesByCompany",
 
                     /* INCIDENTS */
-                    "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
+                    "GET /incidents/incidentsByCompany": "incidents.getIncidentsByCompany",
                     "GET /incidents/incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
                     "POST /incidents/create": "incidents.createIncident",
                     "GET /incidents/countIncidentsByCompany": "incidents.countIncidentsByCompany",
