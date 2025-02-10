@@ -1,7 +1,7 @@
 "use strict"
 
 module.exports = {
-    async find(ctx) {
+    async findAssignedTasks(ctx) {
         const query = ctx.params.query || {};
         try {
             const assignedTasks = await this.adapter.find({ query });

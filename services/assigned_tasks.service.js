@@ -11,11 +11,8 @@ module.exports = {
     mixins: [DbService],
     adapter: adapter,
     model: assigned_tasksModel,
-    settings: {
-        fields: ["id", "incident_id", "assigned_user_id", "company_id", "assignment_date", "createdAt", "updatedAt"],
-    },
     actions: {
         CreateAssignedTask: CreateAssignedTaskAction.CreateAssignedTask,
-        findAssignedTasks: findTasksAction.find
+        findAssignedTasks: findTasksAction.findAssignedTasks
     }
 };
