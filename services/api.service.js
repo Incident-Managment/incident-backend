@@ -27,6 +27,7 @@ module.exports = {
                     "GET /users/getUserById/:id": "users.getUserById",
                     "GET /users": "users.list",
                     "GET /users/:id": "users.get",
+                    "GET /users/techniqueUsersByRoleAndCompany": "users.getTechniqueUsersByRoleAndCompany",
 
                     /* COMPANIES */
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",

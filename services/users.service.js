@@ -7,6 +7,7 @@ const loginAction = require("../actions/users/login");
 const createUserAction = require("../actions/users/createUser");
 const getUsersGlobalAction = require("../actions/users/getUsers");
 const getUserByIdAction = require("../actions/users/getUserById");
+const getTechniqueUsersByRoleAndCompanyAction = require("../actions/users/getTechinqueUsers");
 
 module.exports = {
     name: "users",
@@ -21,7 +22,7 @@ module.exports = {
         createUser: createUserAction.createUser,
         login: loginAction.login,
         getUsersGlobal: getUsersGlobalAction.getUsersGlobal,
-        getUserById: getUserByIdAction.getUserById
-        
+        getUserById: getUserByIdAction.getUserById,
+        getTechniqueUsersByRoleAndCompany: getTechniqueUsersByRoleAndCompanyAction.getTechniqueUsersByRoleAndCompany
     }
 };
