@@ -43,6 +43,7 @@ module.exports = {
                     "GET /machine_types/getMachineTypesGlobal": "machine_types.getMachineTypesGlobal",
                     "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
                     "GET /machines/getMachinesByCompany": "machines.getMachinesByCompany",
+                    "GET /phases_machine/getMachinesByPhase": "phases_machine.getMachinesByPhase",
 
                     /* INCIDENTS */
                     "GET /incidents/incidentsByCompany": "incidents.getIncidentsByCompany",
@@ -52,6 +53,7 @@ module.exports = {
                     "GET /incidents/countIncidentsResolvedByCompany": "incidents.countIncidentsResolvedByCompany",
                     "GET /incidents/averageResolutionTimeByCompany": "incidents.averageResolutionTimeByCompany",
                     "GET /incidents/incidentEfficiencyByCompany": "incidents.incidentEfficiencyByCompany",
+                    "PUT /incidents/updateIncidentByScan": "incidents.updateIncidentByScan",
 
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
