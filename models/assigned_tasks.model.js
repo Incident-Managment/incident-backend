@@ -44,6 +44,10 @@ module.exports = {
         updatedAt: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
-        }
-    }
+        },
+    },
+    options: {
+        timestamps: true,
+        logging: false // Desactiva los logs
+    },
 }

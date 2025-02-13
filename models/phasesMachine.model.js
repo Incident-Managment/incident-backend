@@ -1,23 +1,44 @@
 "use strict";
 const Sequelize = require("sequelize");
 
-module.exports =  {
-    name: "phases_machines",
-    phase_id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true,
+module.exports = {
+    name: "phases_machine",
+    define: {
+        id: {
+            type: Sequelize.INTEGER,
+            primaryKey: true,
+            autoIncrement: true
+        },
+        production_phase_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'production_phases',
+                key: 'id'
+            }
+        },
+        machine_id: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {
+                model: 'machines',
+                key: 'id'
+            }
+        },
+        createdAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        }
     },
-    machine_id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true, // Composite primary key
+    options: {
+        timestamps: true,
     },
-    company_id: {
-        type: Sequelize.INTEGER,
-        primaryKey: true, // Composite primary key
-    },
-    createdAt: {
-        type: Sequelize.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.NOW
-    },
-}
+    associations: function(models) {
+        this.belongsTo(models.production_phases, { foreignKey: 'production_phase_id', as: 'production_phase' });
+        this.belongsTo(models.machines, { foreignKey: 'machine_id', as: 'machine' });
+    }
+};

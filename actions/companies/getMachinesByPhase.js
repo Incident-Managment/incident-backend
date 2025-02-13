@@ -4,18 +4,28 @@ module.exports = {
     async getMachinesByPhase(ctx) {
         const { phase_id } = ctx.params;
 
-        const machines = await this.adapter.find({
-            where: { production_phase_id: phase_id },
-            include: [{
-                model: this.models.Machine,
-                as: 'machine'
-            }]
-        });
+        try {
+            const phases_machines = await this.adapter.db.query(
+                "SELECT DISTINCT pm.production_phase_id, p.name AS phase_name, pm.machine_id, m.name AS machine_name " +
+                "FROM phases_machines pm " +
+                "JOIN production_phases p ON pm.production_phase_id = p.id " +
+                "JOIN machines m ON pm.machine_id = m.id " +
+                "WHERE pm.production_phase_id = :phase_id",
+                {
+                    replacements: { phase_id },
+                    type: this.adapter.db.QueryTypes.SELECT
+                }
+            );
 
-        if (!machines || machines.length === 0) {
-            throw new Error("No se encontraron máquinas para la fase proporcionada");
+            return phases_machines.map(machine => ({
+                production_phase_id: machine.production_phase_id,
+                phase_name: machine.phase_name,
+                machine_id: machine.machine_id,
+                machine_name: machine.machine_name
+            }));
+        } catch (error) {
+            console.error("Error fetching machines by phase:", error);
+            throw new Error("Failed to fetch machines by phase");
         }
-
-        return machines.map(machine => machine.machine);
     }
 };
