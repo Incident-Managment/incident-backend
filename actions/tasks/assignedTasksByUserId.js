@@ -18,57 +18,40 @@ module.exports = {
             const userIds = [...new Set(assignedTasks.map(task => task.assigned_user_id))];
             const companyIds = [...new Set(assignedTasks.map(task => task.company_id))];
 
+            // Fetch incidents first
             const incidents = await ctx.call("incidents.find", { query: { id: incidentIds } });
 
+            // Extract related IDs from incidents
+            const statusIds = [...new Set(incidents.map(inc => inc.status_id))];
+            const priorityIds = [...new Set(incidents.map(inc => inc.priority_id))];
+            const categoryIds = [...new Set(incidents.map(inc => inc.category_id))];
+            const machineIds = [...new Set(incidents.map(inc => inc.machine_id))];
+            const productionPhaseIds = [...new Set(incidents.map(inc => inc.production_phase_id))];
+
+            // Fetch related data in parallel
             const [users, companies, statuses, priorities, categories, machines, productionPhases] = await Promise.all([
                 ctx.call("users.find", { query: { id: userIds } }),
                 ctx.call("companies.find", { query: { id: companyIds } }),
-                ctx.call("statuses.find", { query: { id: incidents.map(inc => inc.status_id) } }),
-                ctx.call("priorities.find", { query: { id: incidents.map(inc => inc.priority_id) } }),
-                ctx.call("categories.find", { query: { id: incidents.map(inc => inc.category_id) } }),
-                ctx.call("machines.find", { query: { id: incidents.map(inc => inc.machine_id) } }),
-                ctx.call("production_phases.find", { query: { id: incidents.map(inc => inc.production_phase_id) } })
+                ctx.call("statuses.find", { query: { id: statusIds } }),
+                ctx.call("priorities.find", { query: { id: priorityIds } }),
+                ctx.call("categories.find", { query: { id: categoryIds } }),
+                ctx.call("machines.find", { query: { id: machineIds } }),
+                ctx.call("production_phases.find", { query: { id: productionPhaseIds } })
             ]);
 
-            const incidentMap = incidents.reduce((acc, incident) => {
-                acc[incident.id] = incident;
+            const createMap = (items, key = 'id') => items.reduce((acc, item) => {
+                acc[item[key]] = item;
                 return acc;
             }, {});
 
-            const userMap = users.reduce((acc, user) => {
-                acc[user.id] = user;
-                return acc;
-            }, {});
-
-            const companyMap = companies.reduce((acc, company) => {
-                acc[company.id] = company;
-                return acc;
-            }, {});
-
-            const statusMap = statuses.reduce((acc, status) => {
-                acc[status.id] = status;
-                return acc;
-            }, {});
-
-            const priorityMap = priorities.reduce((acc, priority) => {
-                acc[priority.id] = priority;
-                return acc;
-            }, {});
-
-            const categoryMap = categories.reduce((acc, category) => {
-                acc[category.id] = category;
-                return acc;
-            }, {});
-
-            const machineMap = machines.reduce((acc, machine) => {
-                acc[machine.id] = machine;
-                return acc;
-            }, {});
-
-            const productionPhaseMap = productionPhases.reduce((acc, productionPhase) => {
-                acc[productionPhase.id] = productionPhase;
-                return acc;
-            }, {});
+            const incidentMap = createMap(incidents);
+            const userMap = createMap(users);
+            const companyMap = createMap(companies);
+            const statusMap = createMap(statuses);
+            const priorityMap = createMap(priorities);
+            const categoryMap = createMap(categories);
+            const machineMap = createMap(machines);
+            const productionPhaseMap = createMap(productionPhases);
 
             const tasksWithDetails = assignedTasks.map(task => ({
                 id: task.id,
@@ -80,7 +63,6 @@ module.exports = {
                     status: statusMap[incidentMap[task.incident_id]?.status_id] || { id: null, name: "Unknown Status" },
                     priority: priorityMap[incidentMap[task.incident_id]?.priority_id] || { id: null, name: "Unknown Priority" },
                     category: categoryMap[incidentMap[task.incident_id]?.category_id] || { id: null, name: "Unknown Category" },
-                    user: userMap[incidentMap[task.incident_id]?.user_id] || { id: null, name: "Unknown User", email: "Unknown Email" },
                     machine: machineMap[incidentMap[task.incident_id]?.machine_id] || { id: null, name: "Unknown Machine" },
                     production_phase: productionPhaseMap[incidentMap[task.incident_id]?.production_phase_id] || { id: null, name: "Unknown Production Phase" },
                     creation_date: incidentMap[task.incident_id]?.creation_date || "Unknown Creation Date",
