@@ -18,17 +18,14 @@ module.exports = {
             const userIds = [...new Set(assignedTasks.map(task => task.assigned_user_id))];
             const companyIds = [...new Set(assignedTasks.map(task => task.company_id))];
 
-            // Fetch incidents first
             const incidents = await ctx.call("incidents.find", { query: { id: incidentIds } });
 
-            // Extract related IDs from incidents
             const statusIds = [...new Set(incidents.map(inc => inc.status_id))];
             const priorityIds = [...new Set(incidents.map(inc => inc.priority_id))];
             const categoryIds = [...new Set(incidents.map(inc => inc.category_id))];
             const machineIds = [...new Set(incidents.map(inc => inc.machine_id))];
             const productionPhaseIds = [...new Set(incidents.map(inc => inc.production_phase_id))];
 
-            // Fetch related data in parallel
             const [users, companies, statuses, priorities, categories, machines, productionPhases] = await Promise.all([
                 ctx.call("users.find", { query: { id: userIds } }),
                 ctx.call("companies.find", { query: { id: companyIds } }),
