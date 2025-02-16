@@ -18,7 +18,7 @@ module.exports = {
             const userIds = [...new Set(assignedTasks.map(task => task.assigned_user_id))];
             const companyIds = [...new Set(assignedTasks.map(task => task.company_id))];
 
-            const incidents = await ctx.call("incidents.find", { query: { id: incidentIds } });
+            const incidents = await ctx.call("incidents.find", { query: { id: incidentIds }, meta: { cache: false } });
 
             const statusIds = [...new Set(incidents.map(inc => inc.status_id))];
             const priorityIds = [...new Set(incidents.map(inc => inc.priority_id))];
@@ -27,13 +27,13 @@ module.exports = {
             const productionPhaseIds = [...new Set(incidents.map(inc => inc.production_phase_id))];
 
             const [users, companies, statuses, priorities, categories, machines, productionPhases] = await Promise.all([
-                ctx.call("users.find", { query: { id: userIds } }),
-                ctx.call("companies.find", { query: { id: companyIds } }),
-                ctx.call("statuses.find", { query: { id: statusIds } }),
-                ctx.call("priorities.find", { query: { id: priorityIds } }),
-                ctx.call("categories.find", { query: { id: categoryIds } }),
-                ctx.call("machines.find", { query: { id: machineIds } }),
-                ctx.call("production_phases.find", { query: { id: productionPhaseIds } })
+                ctx.call("users.find", { query: { id: userIds }, meta: { cache: false } }),
+                ctx.call("companies.find", { query: { id: companyIds }, meta: { cache: false } }),
+                ctx.call("statuses.find", { query: { id: statusIds }, meta: { cache: false } }),
+                ctx.call("priorities.find", { query: { id: priorityIds }, meta: { cache: false } }),
+                ctx.call("categories.find", { query: { id: categoryIds }, meta: { cache: false } }),
+                ctx.call("machines.find", { query: { id: machineIds }, meta: { cache: false } }),
+                ctx.call("production_phases.find", { query: { id: productionPhaseIds }, meta: { cache: false } })
             ]);
 
             const createMap = (items, key = 'id') => items.reduce((acc, item) => {
