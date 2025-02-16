@@ -53,10 +53,14 @@ module.exports = {
                 key: 'id'
             }
         },
-        update_date: {
+        createdAt: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
-        }
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        },
     },
     options: {
         timestamps: false,

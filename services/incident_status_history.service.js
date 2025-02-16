@@ -11,7 +11,7 @@ module.exports = {
     adapter: adapter,
     model: incidentStatusHistoryModel,
     settings: {
-        fields: ["id", "incident_id", "previous_status_id", "new_status_id", "comment", "user_id", "company_id", "update_date"],
+        fields: ["id", "incident_id", "previous_status_id", "new_status_id", "comment", "user_id", "company_id", "createdAt","updatedAt"],
     },
     actions: {
         getIncidentStatusHistory: getIncidentStatusHistoryAction.getIncidentStatusHistory
