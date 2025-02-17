@@ -18,8 +18,10 @@ module.exports = {
             const userIds = [...new Set(assignedTasks.map(task => task.assigned_user_id))];
             const companyIds = [...new Set(assignedTasks.map(task => task.company_id))];
 
-            const incidents = await ctx.call("incidents.find", { query: { id: incidentIds }, meta: { cache: false } });
-
+            const incidents = await ctx.call("incidents.find", { 
+                where: { id: { in: incidentIds } } 
+            });
+            
             const statusIds = [...new Set(incidents.map(inc => inc.status_id))];
             const priorityIds = [...new Set(incidents.map(inc => inc.priority_id))];
             const categoryIds = [...new Set(incidents.map(inc => inc.category_id))];
