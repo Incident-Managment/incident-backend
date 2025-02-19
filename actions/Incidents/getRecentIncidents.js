@@ -11,7 +11,7 @@ module.exports = {
             const incidents = await this.adapter.find({
                 query: { company_id: companyId },
                 sort: "-creation_date",
-                limit: 5
+                limit: 4
             });
 
             if (!incidents || incidents.length === 0) {
