@@ -10,6 +10,7 @@ const averageIncidentsResolutionTimeAction = require("../actions/Incidents/avera
 const incidentEfficiencyByCompanyAction = require("../actions/Incidents/incidentEfficiencyByCompany");
 const updateIncidentByScanAction = require("../actions/Incidents/updateIncidentByScan");
 const getIncidentByIdAction = require("../actions/Incidents/getIncidentById");
+const getRecentIncidentsByCompanyAction = require("../actions/Incidents/getRecentIncidents");
 const incidentsModel = require("../models/incidents.model");
 
 module.exports = {
@@ -28,6 +29,7 @@ module.exports = {
         averageResolutionTimeByCompany: averageIncidentsResolutionTimeAction.averageResolutionTimeByCompany,
         incidentEfficiencyByCompany: incidentEfficiencyByCompanyAction.incidentEfficiencyByCompany,
         updateIncidentByScan: updateIncidentByScanAction.updateIncidentByScan,
-        getIncidentById: getIncidentByIdAction.getIncidentById
+        getIncidentById: getIncidentByIdAction.getIncidentById,
+        getRecentIncidentsByCompany: getRecentIncidentsByCompanyAction.getRecentIncidentsByCompany
     }
 };

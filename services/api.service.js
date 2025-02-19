@@ -55,6 +55,7 @@ module.exports = {
                     "GET /incidents/incidentEfficiencyByCompany": "incidents.incidentEfficiencyByCompany",
                     "PUT /incidents/updateIncidentByScan": "incidents.updateIncidentByScan",
                     "GET /incidents/getIncidentById": "incidents.getIncidentById",
+                    "GET /incidents/getRecentIncidentsByCompany": "incidents.getRecentIncidentsByCompany",
 
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
