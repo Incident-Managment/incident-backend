@@ -18,15 +18,18 @@ module.exports = {
             const userIds = [...new Set(assignedTasks.map(task => task.assigned_user_id))];
             const companyIds = [...new Set(assignedTasks.map(task => task.company_id))];
 
-            const incidents = await ctx.call("incidents.find", { 
+            const companyId = companyIds[0];
+
+            const incidents = await ctx.call("incidents.getIncidentsByCompany", { 
+                companyId,
                 where: { id: { in: incidentIds } } 
             });
-            
-            const statusIds = [...new Set(incidents.map(inc => inc.status_id))];
-            const priorityIds = [...new Set(incidents.map(inc => inc.priority_id))];
-            const categoryIds = [...new Set(incidents.map(inc => inc.category_id))];
-            const machineIds = [...new Set(incidents.map(inc => inc.machine_id))];
-            const productionPhaseIds = [...new Set(incidents.map(inc => inc.production_phase_id))];
+
+            const statusIds = [...new Set(incidents.map(inc => inc.status.id))];
+            const priorityIds = [...new Set(incidents.map(inc => inc.priority.id))];
+            const categoryIds = [...new Set(incidents.map(inc => inc.category.id))];
+            const machineIds = [...new Set(incidents.map(inc => inc.machine.id))];
+            const productionPhaseIds = [...new Set(incidents.map(inc => inc.production_phase.id))];
 
             const [users, companies, statuses, priorities, categories, machines, productionPhases] = await Promise.all([
                 ctx.call("users.find", { query: { id: userIds }, meta: { cache: false } }),
@@ -52,30 +55,33 @@ module.exports = {
             const machineMap = createMap(machines);
             const productionPhaseMap = createMap(productionPhases);
 
-            const tasksWithDetails = assignedTasks.map(task => ({
-                id: task.id,
-                name: task.name,
-                incident: {
-                    id: task.incident_id,
-                    title: incidentMap[task.incident_id]?.title || "Unknown Incident",
-                    description: incidentMap[task.incident_id]?.description || "Unknown Description",
-                    status: statusMap[incidentMap[task.incident_id]?.status_id] || { id: null, name: "Unknown Status" },
-                    priority: priorityMap[incidentMap[task.incident_id]?.priority_id] || { id: null, name: "Unknown Priority" },
-                    category: categoryMap[incidentMap[task.incident_id]?.category_id] || { id: null, name: "Unknown Category" },
-                    machine: machineMap[incidentMap[task.incident_id]?.machine_id] || { id: null, name: "Unknown Machine" },
-                    production_phase: productionPhaseMap[incidentMap[task.incident_id]?.production_phase_id] || { id: null, name: "Unknown Production Phase" },
-                    creation_date: incidentMap[task.incident_id]?.creation_date || "Unknown Creation Date",
-                    update_date: incidentMap[task.incident_id]?.update_date || "Unknown Update Date"
-                },
-                user: {
-                    id: task.assigned_user_id,
-                    name: userMap[task.assigned_user_id]?.name || "Unknown User"
-                },
-                company: {
-                    id: task.company_id,
-                    name: companyMap[task.company_id]?.name || "Unknown Company"
-                }
-            }));
+            const tasksWithDetails = assignedTasks.map(task => {
+                const incident = incidentMap[task.incident_id] || {};
+                return {
+                    id: task.id,
+                    name: task.name,
+                    incident: {
+                        id: task.incident_id,
+                        title: incident.title || "Unknown Incident",
+                        description: incident.description || "Unknown Description",
+                        status: statusMap[incident.status?.id] || { id: null, name: "Unknown Status" },
+                        priority: priorityMap[incident.priority?.id] || { id: null, name: "Unknown Priority" },
+                        category: categoryMap[incident.category?.id] || { id: null, name: "Unknown Category" },
+                        machine: machineMap[incident.machine?.id] || { id: null, name: "Unknown Machine" },
+                        production_phase: productionPhaseMap[incident.production_phase?.id] || { id: null, name: "Unknown Production Phase" },
+                        creation_date: incident.creation_date || "Unknown Creation Date",
+                        update_date: incident.update_date || "Unknown Update Date"
+                    },
+                    user: {
+                        id: task.assigned_user_id,
+                        name: userMap[task.assigned_user_id]?.name || "Unknown User"
+                    },
+                    company: {
+                        id: task.company_id,
+                        name: companyMap[task.company_id]?.name || "Unknown Company"
+                    }
+                };
+            });
 
             return tasksWithDetails;
         } catch (error) {
