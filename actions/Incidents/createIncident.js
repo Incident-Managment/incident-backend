@@ -36,7 +36,6 @@ module.exports = {
             }
         }
 
-        // Inserta el incidente en la base de datos
         const incident = await this.adapter.insert({
             title,
             description,
@@ -51,6 +50,20 @@ module.exports = {
             creation_date: new Date(),
             update_date: new Date(),
         });
+
+        try {
+            await ctx.call("incident_status_history.createIncidentHistory", {
+                incident_id: incident.id,
+                previous_status_id: null, // Proporciona un valor predeterminado para previous_status_id
+                new_status_id: status_id,
+                comment: "Se creó una incidencia y se puso en status En Espera",
+                user_id,
+                company_id
+            });
+        } catch (err) {
+            this.logger.error("Error al crear el historial de la incidencia:", err);
+            throw new Error("Error al crear el historial de la incidencia");
+        }
 
         return incident;
     },

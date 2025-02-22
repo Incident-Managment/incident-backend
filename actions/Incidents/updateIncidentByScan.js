@@ -15,10 +15,13 @@ module.exports = {
         }
 
         let newStatus;
+        let newStatusName;
         if (Number(incident.status_id) === 1) {
             newStatus = 2;
+            newStatusName = "En Progreso";
         } else if (Number(incident.status_id) === 2) {
             newStatus = 3;
+            newStatusName = "Resuelto";
         } else {
             console.error(`El incidente con ID ${incident_id} tiene un estado no válido: ${incident.status_id}`);
             throw new Error("El incidente no está en un estado válido y no puede ser actualizado.");
@@ -29,6 +32,15 @@ module.exports = {
                 status_id: newStatus,
                 update_date: new Date(),
             },
+        });
+
+        await ctx.call("incident_status_history.createIncidentHistory", {
+            incident_id: incident.id,
+            previous_status_id: incident.status_id,
+            new_status_id: newStatus,
+            comment: `Se escaneó la incidencia y se cambió a status ${newStatusName}`,
+            user_id: incident.user_id,
+            company_id: incident.company_id
         });
 
         console.log(`Incidente actualizado: ${JSON.stringify(updatedIncident)}`);
