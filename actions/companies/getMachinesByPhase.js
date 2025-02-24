@@ -2,7 +2,7 @@
 
 module.exports = {
     async getMachinesByPhase(ctx) {
-        const { phase_id } = ctx.params;
+        const { phase_id, company_id } = ctx.params;
 
         try {
             const phases_machines = await this.adapter.db.query(
@@ -10,9 +10,9 @@ module.exports = {
                 "FROM phases_machines pm " +
                 "JOIN production_phases p ON pm.production_phase_id = p.id " +
                 "JOIN machines m ON pm.machine_id = m.id " +
-                "WHERE pm.production_phase_id = :phase_id",
+                "WHERE pm.production_phase_id = :phase_id AND p.company_id = :company_id AND m.company_id = :company_id",
                 {
-                    replacements: { phase_id },
+                    replacements: { phase_id, company_id },
                     type: this.adapter.db.QueryTypes.SELECT
                 }
             );
