@@ -44,6 +44,8 @@ module.exports = {
                     "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
                     "GET /machines/getMachinesByCompany": "machines.getMachinesByCompany",
                     "GET /phases_machine/getMachinesByPhase": "phases_machine.getMachinesByPhase",
+                    "POST /machines/createMachines": "machines.createMachines",
+                    "POST /phases_machine/addMachinesToPhase": "phases_machine.addMachinesToPhase",
 
                     /* INCIDENTS */
                     "GET /incidents/incidentsByCompany": "incidents.getIncidentsByCompany",
