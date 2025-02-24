@@ -1,40 +1,35 @@
 "use strict";
 
 module.exports = {
-    async updateProductionPhase (ctx) {
-        const { companyId, phaseId, phase_order, name, is_active } = ctx.params;
+    async updateProductionPhase(ctx) {
+        const { id, name, phase_order, is_active } = ctx.params;
 
-        if (!companyId || !phaseId) {
-            throw new Error("Company ID and Phase ID are required");
+        if (!id) {
+            throw new Error("ID is required");
         }
 
-        try {
-            // Encuentra la fase de producción asociada a la compañía y el ID de fase proporcionados
-            const existingPhase = await this.adapter.findOne({ 
-                query: { company_id: companyId, id: phaseId } 
-            });
+        const existingPhases = await ctx.call("production_phases.find", {});
 
-            if (!existingPhase) {
-                ctx.meta.$statusCode = 404;
-                throw new Error("Production phase not found");
+        if (phase_order !== undefined) {
+            const duplicatePhase = existingPhases.find(phase => phase.phase_order === phase_order && phase.id !== id);
+            if (duplicatePhase) {
+                throw new Error(`Another phase with phase_order ${phase_order} already exists.`);
             }
+        }
 
-            // Realiza la actualización en la base de datos
-            const updatedPhase = await this.adapter.updateById(phaseId, {
-                $set: { phase_order, name, is_active }
+        const updateData = {};
+        if (name !== undefined) updateData.name = name;
+        if (phase_order !== undefined) updateData.phase_order = phase_order;
+        if (is_active !== undefined) updateData.is_active = is_active;
+
+        try {
+            const result = await ctx.call("production_phases.update", {
+                id,
+                $set: updateData
             });
-
-            return { message: "Production phase updated successfully", updatedPhase };
+            return result;
         } catch (error) {
-            console.error("Error updating production phase:", {
-                message: error.message,
-                stack: error.stack,
-                companyId,
-                phaseId
-            });
-
-            ctx.meta.$statusCode = error.message.includes("not found") ? 404 : 500;
-            throw new Error("Failed to update production phase");
+            throw new Error(`Failed to update production phase: ${error.message}`);
         }
     }
 };
