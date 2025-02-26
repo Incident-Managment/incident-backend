@@ -14,6 +14,18 @@ module.exports = {
             throw new Error("El ID de la máquina escaneada no coincide con el incidente seleccionado");
         }
 
+        const assignedTasks = await ctx.call("assigned_tasks.findAssignedTasksByIncidentId", { incident_id });
+
+        if (!assignedTasks || assignedTasks.length === 0) {
+            throw new Error("No hay tareas asignadas para este incidente");
+        }
+
+        const assignedTask = assignedTasks[0];
+
+        if (assignedTask.assigned_user_id === incident.user_id) {
+            throw new Error("El usuario asignado no puede ser el mismo que el creador de la incidencia");
+        }
+
         let newStatus;
         let newStatusName;
         if (Number(incident.status_id) === 1) {
@@ -39,7 +51,7 @@ module.exports = {
             previous_status_id: incident.status_id,
             new_status_id: newStatus,
             comment: `Se escaneó la incidencia y se cambió a status ${newStatusName}`,
-            user_id: incident.user_id,
+            user_id: assignedTask.assigned_user_id,
             company_id: incident.company_id
         });
 

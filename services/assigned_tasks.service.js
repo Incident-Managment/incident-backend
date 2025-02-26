@@ -6,6 +6,7 @@ const assigned_tasksModel = require("../models/assigned_tasks.model");
 const CreateAssignedTaskAction = require("../actions/tasks/assigned_tasks");
 const findTasksAction = require("../actions/tasks/find_tasks");
 const findAssignedTasksByUserIdAction = require("../actions/tasks/assignedTasksByUserId");
+const findAssignedTasksByIncidentIdAction = require("../actions/tasks/find_taskByIncidentId");
 module.exports = {
     name: "assigned_tasks",
     mixins: [DbService],
@@ -14,7 +15,7 @@ module.exports = {
     actions: {
         CreateAssignedTask: CreateAssignedTaskAction.CreateAssignedTask,
         findAssignedTasks: findTasksAction.findAssignedTasks,
-        findAssignedTasksByUserId: findAssignedTasksByUserIdAction.findAssignedTasksByUserId
-
+        findAssignedTasksByUserId: findAssignedTasksByUserIdAction.findAssignedTasksByUserId,
+        findAssignedTasksByIncidentId :findAssignedTasksByIncidentIdAction.findAssignedTasksByIncidentId
     }
 };

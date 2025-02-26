@@ -63,6 +63,7 @@ module.exports = {
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",
                     "GET /assigned_tasks/findAssignedTasksByUserId": "assigned_tasks.findAssignedTasksByUserId",
+                    "GET /assigned_tasks/findAssignedTasksByIncidentId": "assigned_tasks.findAssignedTasksByIncidentId",
                     /*EXTERNAL*/
                     "POST /slack/sendMessage": "slack.sendMessage",
                 },
