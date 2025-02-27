@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Run tests
+      run: pnpm test
+
+    - name: Build application
+      run: pnpm build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Esto asegura que el paso "build" se ejecute primero
+
+    steps:
+    - name: Acceso SSH y despliegue
+      run: |
+        sshpass -p "_HPH24@Assh" ssh -o StrictHostKeyChecking=no root@178.16.142.77 << EOF
+          cd /home/incidentstream-back/htdocs/incident-backend
+          git pull origin main
+          npm install -g pnpm  # Instala pnpm en el servidor remoto
+          pnpm install
+        EOF
+      env:
+        SSHPASS: _HPH24@Assh
+      shell: bash

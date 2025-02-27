@@ -27,24 +27,45 @@ module.exports = {
                     "GET /users/getUserById/:id": "users.getUserById",
                     "GET /users": "users.list",
                     "GET /users/:id": "users.get",
+                    "GET /users/techniqueUsersByRoleAndCompany": "users.getTechniqueUsersByRoleAndCompany",
 
                     /* COMPANIES */
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
                     "GET /prioritiesByCompany": "priorities.getPrioritiesByCompany",
-                    "GET /statusesByCompany": "statuses.getStatusesByCompany",
+                    "GET /statuses/getStatuses": "statuses.getStatuses",
                     "GET /categoriesByCompany": "categories.getCategoriesByCompany",
                     "GET /productionPhasesByCompany": "production_phases.getProductionPhasesByCompany",
-
+                    "PUT /production_phases/updateProductionPhase": "production_phases.updateProductionPhase",
                     /* ROLES */
                     "GET /roles/getRolesGlobal": "roles.getRolesGlobal",
 
                     /* MACHINES */
                     "GET /machine_types/getMachineTypesGlobal": "machine_types.getMachineTypesGlobal",
                     "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
+                    "GET /machines/getMachinesByCompany": "machines.getMachinesByCompany",
+                    "GET /phases_machine/getMachinesByPhase": "phases_machine.getMachinesByPhase",
+                    "POST /machines/createMachines": "machines.createMachines",
+                    "POST /phases_machine/addMachinesToPhase": "phases_machine.addMachinesToPhase",
 
                     /* INCIDENTS */
-                    "GET /incidentsByCompany": "incidents.getIncidentsByCompany",
-                    "GET /incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
+                    "GET /incidents/incidentsByCompany": "incidents.getIncidentsByCompany",
+                    "GET /incidents/incidentStatusHistoryByIncident": "incident_status_history.getIncidentStatusHistory",
+                    "POST /incidents/create": "incidents.createIncident",
+                    "GET /incidents/countIncidentsByCompany": "incidents.countIncidentsByCompany",
+                    "GET /incidents/countIncidentsResolvedByCompany": "incidents.countIncidentsResolvedByCompany",
+                    "GET /incidents/averageResolutionTimeByCompany": "incidents.averageResolutionTimeByCompany",
+                    "GET /incidents/incidentEfficiencyByCompany": "incidents.incidentEfficiencyByCompany",
+                    "PUT /incidents/updateIncidentByScan": "incidents.updateIncidentByScan",
+                    "GET /incidents/getIncidentById": "incidents.getIncidentById",
+                    "GET /incidents/getRecentIncidentsByCompany": "incidents.getRecentIncidentsByCompany",
+                    "POST /incident_status_history/create": "incident_status_history.createIncidentHistory",
+                    /* TASKS */
+                    "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
+                    "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",
+                    "GET /assigned_tasks/findAssignedTasksByUserId": "assigned_tasks.findAssignedTasksByUserId",
+                    "GET /assigned_tasks/findAssignedTasksByIncidentId": "assigned_tasks.findAssignedTasksByIncidentId",
+                    /*EXTERNAL*/
+                    "POST /slack/sendMessage": "slack.sendMessage",
                 },
                 mappingPolicy: "all",
             }

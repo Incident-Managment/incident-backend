@@ -1,9 +1,7 @@
 "use strict";
 
 module.exports = {
-    getUsersGlobal: {
-        rest: "GET /usersGlobal",
-        async handler(ctx) {
+    async getUsersGlobal (ctx) {
             try {
                 const users = await this.adapter.find();
 
@@ -48,5 +46,4 @@ module.exports = {
                 throw new Error("Failed to fetch users");
             }
         }
-    }
-};
+    };

@@ -1,9 +1,7 @@
 "use strict";
 
 module.exports = {
-    getMachinesGlobal: {
-        rest: "GET /machines",
-        async handler(ctx) {
+    async getMachinesGlobal (ctx)  {
             try {
                 const machines = await this.adapter.find({
                     populate: ["type_id", "company_id", "production_phase_id"]
@@ -59,5 +57,9 @@ module.exports = {
                 throw new Error("Failed to fetch machines");
             }
         }
+<<<<<<< HEAD
     }
 };
+=======
+    };
+>>>>>>> main

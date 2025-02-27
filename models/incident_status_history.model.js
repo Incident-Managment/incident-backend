@@ -19,7 +19,7 @@ module.exports = {
         },
         previous_status_id: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: {
                 model: 'statuses',
                 key: 'id'
@@ -53,14 +53,18 @@ module.exports = {
                 key: 'id'
             }
         },
-        update_date: {
+        createdAt: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
-        }
+        },
+        updatedAt: {
+            type: Sequelize.DATE,
+            defaultValue: Sequelize.NOW
+        },
     },
     options: {
-        tableName: 'incident_status_history', // Specify the correct table name
-        timestamps: false
+        timestamps: false,
+        logging: false // Desactiva los logs
     },
     associations: function(models) {
         this.belongsTo(models.incidents, { foreignKey: 'incident_id', as: 'incident' });

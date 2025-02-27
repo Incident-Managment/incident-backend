@@ -1,9 +1,7 @@
 "use strict";
 
 module.exports = {
-    getUserById: {
-        rest: "GET /users/:id",
-        async handler(ctx) {
+    async getUserById (ctx){
             try {
                 const user = await this.adapter.findById(ctx.params.id);
 
@@ -37,5 +35,4 @@ module.exports = {
                 throw new Error("Failed to fetch user");
             }
         }
-    }
-};
+    };

@@ -6,6 +6,7 @@
     "dev": "moleculer-runner --repl --hot services/**/*.service.js",
     "start": "moleculer-runner",
     "cli": "moleculer connect NATS",
+    "build": "echo 'No build required for this project.'",
     "ci": "jest --watch",
     "test": "jest --coverage",
     "dc:up": "docker-compose up --build -d",
@@ -23,13 +24,19 @@
     "moleculer-repl": "^0.7.4"
   },
   "dependencies": {
+    "@slack/web-api": "^7.8.0",
     "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
+<<<<<<< HEAD
 
     "ioredis": "^5.4.2",
 
+=======
+    "ioredis": "^5.0.0",
+>>>>>>> main
     "jsonwebtoken": "^9.0.2",
     "localizedFormat": "link:dayjs\\plugin\\localizedFormat",
     "moleculer": "^0.14.35",

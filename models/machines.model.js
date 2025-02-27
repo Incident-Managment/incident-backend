@@ -39,7 +39,8 @@ module.exports = {
         }
     },
     options: {
-        timestamps: false
+        timestamps: false,
+        logging: false // Desactiva los logs
     },
     associations: function(models) {
         this.belongsTo(models.machine_types, { foreignKey: 'type_id', as: 'type' });

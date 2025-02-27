@@ -46,7 +46,8 @@ module.exports = {
                     email: userMap[history.user_id].email
                 },
                 company_id: history.company_id,
-                update_date: history.update_date
+                createdAt: history.createdAt,
+                updatedAt: history.updatedAt
             }));
 
             console.log("Status history with details:", statusHistoryWithDetails);

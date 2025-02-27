@@ -3,6 +3,7 @@
 const DbService = require("moleculer-db");
 const adapter = require("../utils/dbAdapter");
 const getIncidentStatusHistoryAction = require("../actions/Incidents/getIncidentStatusHistory");
+const createIncidentHistoryAction = require("../actions/Incidents/createHistory");
 const incidentStatusHistoryModel = require("../models/incident_status_history.model");
 
 module.exports = {
@@ -11,9 +12,10 @@ module.exports = {
     adapter: adapter,
     model: incidentStatusHistoryModel,
     settings: {
-        fields: ["id", "incident_id", "previous_status_id", "new_status_id", "comment", "user_id", "company_id", "update_date"],
+        fields: ["id", "incident_id", "previous_status_id", "new_status_id", "comment", "user_id", "company_id", "createdAt", "updatedAt"],
     },
     actions: {
-        getIncidentStatusHistory: getIncidentStatusHistoryAction.getIncidentStatusHistory
+        getIncidentStatusHistory: getIncidentStatusHistoryAction.getIncidentStatusHistory,
+        createIncidentHistory: createIncidentHistoryAction.createIncidentHistory
     }
 };

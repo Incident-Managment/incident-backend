@@ -72,6 +72,9 @@ module.exports = {
                 key: 'id'
             }
         },
+        image_cloudinary: {
+            type: Sequelize.JSON
+        },
         creation_date: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
@@ -82,7 +85,8 @@ module.exports = {
         }
     },
     options: {
-        timestamps: false
+        timestamps: false,
+        logging: false // Desactiva los logs
     },
     associations: function(models) {
         this.belongsTo(models.statuses, { foreignKey: 'status_id', as: 'status' });
