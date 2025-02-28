@@ -28,7 +28,7 @@ module.exports = {
                     "GET /users": "users.list",
                     "GET /users/:id": "users.get",
                     "GET /users/techniqueUsersByRoleAndCompany": "users.getTechniqueUsersByRoleAndCompany",
-
+                    "PUT /users/updateUser": "users.updateUser",
                     /* COMPANIES */
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
                     "GET /prioritiesByCompany": "priorities.getPrioritiesByCompany",
@@ -64,6 +64,7 @@ module.exports = {
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",
                     "GET /assigned_tasks/findAssignedTasksByUserId": "assigned_tasks.findAssignedTasksByUserId",
                     "GET /assigned_tasks/findAssignedTasksByIncidentId": "assigned_tasks.findAssignedTasksByIncidentId",
+                    "GET /assigned_tasks/featureTechnicians": "assigned_tasks.featureTechnicians",
                     /*EXTERNAL*/
                     "POST /slack/sendMessage": "slack.sendMessage",
                 },

@@ -8,6 +8,7 @@ const createUserAction = require("../actions/users/createUser");
 const getUsersGlobalAction = require("../actions/users/getUsers");
 const getUserByIdAction = require("../actions/users/getUserById");
 const getTechniqueUsersByRoleAndCompanyAction = require("../actions/users/getTechinqueUsers");
+const updateUserAction = require("../actions/users/updateUser"); //Importa la acción de editar
 
 module.exports = {
     name: "users",
@@ -23,6 +24,7 @@ module.exports = {
         login: loginAction.login,
         getUsersGlobal: getUsersGlobalAction.getUsersGlobal,
         getUserById: getUserByIdAction.getUserById,
-        getTechniqueUsersByRoleAndCompany: getTechniqueUsersByRoleAndCompanyAction.getTechniqueUsersByRoleAndCompany
+        getTechniqueUsersByRoleAndCompany: getTechniqueUsersByRoleAndCompanyAction.getTechniqueUsersByRoleAndCompany,
+        updateUser: updateUserAction.updateUser,
     }
 };
