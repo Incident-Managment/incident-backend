@@ -1,35 +1,52 @@
 "use strict";
 
 module.exports = {
-    async updateProductionPhase(ctx) {
-        const { id, name, phase_order, is_active } = ctx.params;
+        async updateProductionPhase(ctx) {
+            const { Errors } = require("moleculer");
+            try {
+                const { id, name, phase_order, company_id, is_active } = ctx.params;
 
-        if (!id) {
-            throw new Error("ID is required");
-        }
+                
+                const company = await ctx.call("companies.get", { id: company_id });
+                if (!company || company.length === 0) {
+                    throw new Errors.MoleculerClientError("No company found", 404, "NOT_FOUND");
+                }
+                const existingPhase = await this.adapter.find({ 
+                    query: { 
+                        phase_order: phase_order
+                    } 
+                });
+                if (existingPhase.length > 0 && existingPhase[0].id !== id) {
+                    throw new Errors.MoleculerClientError("Phase order already exists", 400, "DUPLICATE_PHASE_ORDER");  
+                }
 
-        const existingPhases = await ctx.call("production_phases.find", {});
-
-        if (phase_order !== undefined) {
-            const duplicatePhase = existingPhases.find(phase => phase.phase_order === phase_order && phase.id !== id);
-            if (duplicatePhase) {
-                throw new Error(`Another phase with phase_order ${phase_order} already exists.`);
+                return this.adapter.updateById(id, {
+                    $set : {
+                        name,
+                        phase_order,
+                        company_id,
+                        is_active
+                    }
+                });
+            } catch (error) {
+                console.error("Error updating production phase:", {
+                    message: error.message,
+                    stack: error.stack,
+                    params: ctx.params
+                });
+                if (error.name === 'EntityNotFoundError') {
+                    throw new Errors.MoleculerClientError("No production phase found", 404, "NOT_FOUND");
+                }
+                if (error.message.includes("Service unavailable")) {
+                    ctx.meta.$statusCode = 503;
+                    throw new Error("ServiceUnavailableError: Service unavailable");
+                }
+                if(error.message.includes("Phase order already exists")){
+                    ctx.meta.$statusCode = 400;
+                    throw new Errors.MoleculerClientError("Phase order already exists", 400, "DUPLICATE_PHASE_ORDER");
+                }
+                ctx.meta.$statusCode = 500;
+                throw new Errors.MoleculerClientError("Failed to update production phase", 500, "INTERNAL_ERROR");
             }
         }
-
-        const updateData = {};
-        if (name !== undefined) updateData.name = name;
-        if (phase_order !== undefined) updateData.phase_order = phase_order;
-        if (is_active !== undefined) updateData.is_active = is_active;
-
-        try {
-            const result = await ctx.call("production_phases.update", {
-                id,
-                $set: updateData
-            });
-            return result;
-        } catch (error) {
-            throw new Error(`Failed to update production phase: ${error.message}`);
-        }
-    }
-};
+    };

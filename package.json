@@ -30,13 +30,7 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
-<<<<<<< HEAD
-
     "ioredis": "^5.4.2",
-
-=======
-    "ioredis": "^5.0.0",
->>>>>>> main
     "jsonwebtoken": "^9.0.2",
     "localizedFormat": "link:dayjs\\plugin\\localizedFormat",
     "moleculer": "^0.14.35",
@@ -59,6 +53,16 @@
     "rootDir": "./services",
     "roots": [
       "../test"
+    ]
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "bcrypt",
+      "es5-ext"
+    ],
+    "onlyBuiltDependencies": [
+      "bcrypt",
+      "es5-ext"
     ]
   }
 }

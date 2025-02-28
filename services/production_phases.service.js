@@ -6,6 +6,7 @@ const getProductionPhasesByCompanyIdAction = require("../actions/companies/getPr
 //const getProductionPhasesByMachineIdAction = require("../actions/companies/getProductionPhasesByMachineIds");
 const productionPhasesModel = require("../models/production_phases.model");
 const updateProductionPhaseAction = require("../actions/companies/updateProductionPhase");
+const postProductionPhaseAction = require("../actions/companies/postProductionPhase");
 
 module.exports = {
     name: "production_phases",
@@ -17,6 +18,7 @@ module.exports = {
     },
     actions: {
         getProductionPhasesByCompany: getProductionPhasesByCompanyIdAction.getProductionPhasesByCompany,
+        postProductionPhase:  postProductionPhaseAction.createProductionPhase,
         updateProductionPhase: updateProductionPhaseAction.updateProductionPhase
     }
 };

@@ -5,7 +5,8 @@ const adapter = require("../utils/dbAdapter");
 const MachinesModel = require("../models/machines.model");
 const getMachinesAction = require("../actions/machines/getMachines");
 const getMachinesByCompanyAction = require("../actions/machines/getMachinesByCompany");
-const createMachinesAction = require("../actions/machines/createMachines");
+const createMachinesAction = require("../actions/machines/postMachines");
+const updateMachineAction = require("../actions/machines/updateMachines");
 module.exports = {
     name: "machines",
     mixins: [DbService],
@@ -17,6 +18,7 @@ module.exports = {
     actions: {
         getMachinesGlobal: getMachinesAction.getMachinesGlobal,
         getMachinesByCompany: getMachinesByCompanyAction.getMachinesByCompany,
-        createMachines: createMachinesAction.createMachines
-    }
+        createMachine: createMachinesAction.createMachine,
+        updateMachine: updateMachineAction.updateMachine
+}
 };

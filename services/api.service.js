@@ -33,9 +33,10 @@ module.exports = {
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
                     "GET /prioritiesByCompany": "priorities.getPrioritiesByCompany",
                     "GET /statuses/getStatuses": "statuses.getStatuses",
-                    "GET /categoriesByCompany": "categories.getCategoriesByCompany",
-                    "GET /productionPhasesByCompany": "production_phases.getProductionPhasesByCompany",
-                    "PUT /production_phases/updateProductionPhase": "production_phases.updateProductionPhase",
+                    "GET /productionPhasesByCompany/:companyId": "production_phases.getProductionPhasesByCompany",
+                    "POST /createProductionPhases": "production_phases.postProductionPhase",
+                    "PUT /updateProductionPhase/:id": "production_phases.updateProductionPhase",
+
                     /* ROLES */
                     "GET /roles/getRolesGlobal": "roles.getRolesGlobal",
 
@@ -44,8 +45,9 @@ module.exports = {
                     "GET /machines/getMachinesGlobal": "machines.getMachinesGlobal",
                     "GET /machines/getMachinesByCompany": "machines.getMachinesByCompany",
                     "GET /phases_machine/getMachinesByPhase": "phases_machine.getMachinesByPhase",
-                    "POST /machines/createMachines": "machines.createMachines",
+                    "POST /machines/createMachines": "machines.createMachine",
                     "POST /phases_machine/addMachinesToPhase": "phases_machine.addMachinesToPhase",
+                    "PUT /machines/updateMachine/:id": "machines.updateMachine",
 
                     /* INCIDENTS */
                     "GET /incidents/incidentsByCompany": "incidents.getIncidentsByCompany",
@@ -58,7 +60,8 @@ module.exports = {
                     "PUT /incidents/updateIncidentByScan": "incidents.updateIncidentByScan",
                     "GET /incidents/getIncidentById": "incidents.getIncidentById",
                     "GET /incidents/getRecentIncidentsByCompany": "incidents.getRecentIncidentsByCompany",
-                    "POST /incident_status_history/create": "incident_status_history.createIncidentHistory",
+                    "POST /createProductionPhases": "production_phases.postProductionPhase",
+            
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",

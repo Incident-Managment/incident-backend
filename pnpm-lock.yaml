@@ -27,7 +27,7 @@ importers:
         specifier: ^16.4.7
         version: 16.4.7
       ioredis:
-        specifier: ^5.0.0
+        specifier: ^5.4.2
         version: 5.4.2
       jsonwebtoken:
         specifier: ^9.0.2
