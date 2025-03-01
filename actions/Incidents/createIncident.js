@@ -22,8 +22,8 @@ module.exports = {
             try {
                 const uploadResult = await ctx.call("cloudinary.upload", {
                     imagePath,
-                    folder: folder || "incidents", // Especifica la carpeta aquí
-                    public_id: `incidents/${Date.now()}` // Especifica el public_id aquí
+                    folder: "Incidents", // Explicitly set the folder to "Incidents"
+                    public_id: `incidents/${Date.now()}`
                 });
 
                 image_cloudinary = {

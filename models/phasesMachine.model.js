@@ -36,6 +36,7 @@ module.exports = {
     },
     options: {
         timestamps: true,
+        logging:false,
     },
     associations: function(models) {
         this.belongsTo(models.production_phases, { foreignKey: 'production_phase_id', as: 'production_phase' });
