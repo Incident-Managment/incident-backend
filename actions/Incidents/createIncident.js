@@ -28,9 +28,6 @@ module.exports = {
                 const filename = `incidents/${Date.now()}`;
                 this.logger.info("Uploading file to Firebase Storage with filename:", filename);
 
-                // Log before calling the upload service
-                this.logger.info("Calling storageService.uploadImage");
-
                 const uploadResult = await ctx.call("storageService.uploadImage", {
                     file: fileBuffer,
                     filename: filename
