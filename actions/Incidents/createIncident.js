@@ -20,19 +20,28 @@ module.exports = {
 
         if (imagePath) {
             try {
-                const uploadResult = await ctx.call("cloudinary.upload", {
-                    imagePath,
-                    folder: "Incidents", // Explicitly set the folder to "Incidents"
-                    public_id: `incidents/${Date.now()}`
+                // Leer el archivo de imagen como un Buffer
+                const fs = require('fs');
+                const fileBuffer = fs.readFileSync(imagePath);
+                this.logger.info("File read successfully:", imagePath);
+
+                // Subir la imagen a Firebase Storage
+                const filename = `incidents/${Date.now()}`;
+                this.logger.info("Uploading file to Firebase Storage with filename:", filename);
+
+                const uploadResult = await ctx.call("storageService.uploadImage", {
+                    file: fileBuffer,
+                    filename: filename
                 });
+                this.logger.info("Upload result:", uploadResult);
 
                 image_cloudinary = {
-                    secure_url: uploadResult.url, // URL segura de Cloudinary
-                    public_id: uploadResult.public_id, // ID público para gestión futura
+                    secure_url: uploadResult.url, // URL pública de Firebase Storage
+                    public_id: filename // ID público para gestión futura
                 };
             } catch (err) {
                 this.logger.error("Error al subir la imagen:", err);
-                throw new Error("Error al subir la imagen a Cloudinary");
+                throw new Error("Error al subir la imagen a Firebase Storage");
             }
         }
 
@@ -46,7 +55,7 @@ module.exports = {
             machine_id,
             company_id,
             production_phase_id,
-            image_cloudinary: image_cloudinary || { secure_url: "https://res.cloudinary.com/demo/image/upload/v1234567890/default/incidents.jpg", public_id: "incidents/default" }, // Asegúrate de que no sea null
+            image_cloudinary: image_cloudinary || { secure_url: "https://example.com/default/incidents.jpg", public_id: "incidents/default" }, // Asegúrate de que no sea null
             creation_date: new Date(),
             update_date: new Date(),
         });

@@ -66,8 +66,12 @@ module.exports = {
                     "GET /assigned_tasks/findAssignedTasksByUserId": "assigned_tasks.findAssignedTasksByUserId",
                     "GET /assigned_tasks/findAssignedTasksByIncidentId": "assigned_tasks.findAssignedTasksByIncidentId",
                     "GET /assigned_tasks/featureTechnicians": "assigned_tasks.featureTechnicians",
-                    /*EXTERNAL*/
+                    /* EXTERNAL */
                     "POST /slack/sendMessage": "slack.sendMessage",
+
+                    /* STORAGE */
+                    "POST /storage/uploadImage": "storageService.uploadImage",
+                    "GET /storage/getImage/:filename": "storageService.getImage",
                 },
                 mappingPolicy: "all",
             }
