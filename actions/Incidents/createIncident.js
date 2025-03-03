@@ -13,7 +13,6 @@ module.exports = {
             company_id,
             production_phase_id,
             imagePath,
-            folder,
         } = ctx.params;
 
         let image_cloudinary = null;
