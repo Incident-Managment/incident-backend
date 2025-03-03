@@ -23,7 +23,7 @@ module.exports = {
       const file = ctx.params.file;  // El archivo debe ser un Buffer o Stream
 
       // Definir el nombre del archivo en el Storage (puedes personalizarlo)
-      const fileName = `incidents/${ctx.params.filename}`;
+      const fileName = `images/${ctx.params.filename}`;
       this.logger.info("Uploading file to Firebase Storage with filename:", fileName);
 
       try {
