@@ -44,6 +44,9 @@ module.exports = {
             }
         }
 
+        const now = new Date();
+        now.setHours(now.getHours() - 7);
+
         const incident = await this.adapter.insert({
             title,
             description,
@@ -55,8 +58,8 @@ module.exports = {
             company_id,
             production_phase_id,
             image_cloudinary: image_cloudinary || { secure_url: "https://example.com/default/incidents.jpg", public_id: "incidents/default" }, // Asegúrate de que no sea null
-            creation_date: new Date(),
-            update_date: new Date(),
+            creation_date: now,
+            update_date: now,
         });
 
         try {

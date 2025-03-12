@@ -13,7 +13,7 @@ module.exports = {
                 path: "/api",
                 use: [
                     cors({
-                        origin: true,
+                        origin: "*",
                         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
                         allowedHeaders: ["Content-Type", "Authorization"],
                         credentials: true
@@ -60,6 +60,8 @@ module.exports = {
                     "GET /incidents/getIncidentById": "incidents.getIncidentById",
                     "GET /incidents/getRecentIncidentsByCompany": "incidents.getRecentIncidentsByCompany",
                     "POST /incident_status_history/create": "incident_status_history.createIncidentHistory",
+                    "GET /incidents/incidentsByStatusMonthly": "incidents.getIncidentsByStatusMonthly",
+                    "GET /incidents/mostCommonProblemsByCategory": "incidents.getMostCommonProblemsByCategory",
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",
