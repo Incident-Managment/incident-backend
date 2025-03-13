@@ -62,6 +62,7 @@ module.exports = {
                     "POST /incident_status_history/create": "incident_status_history.createIncidentHistory",
                     "GET /incidents/incidentsByStatusMonthly": "incidents.getIncidentsByStatusMonthly",
                     "GET /incidents/mostCommonProblemsByCategory": "incidents.getMostCommonProblemsByCategory",
+                    "GET /incidents/monthlyEvolution": "incidents.MonthlyEvolution",
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",
