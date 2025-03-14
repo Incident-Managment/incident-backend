@@ -15,6 +15,7 @@ const incidentsModel = require("../models/incidents.model");
 const getIncidentsByStatusMonthlyAction = require("../actions/Incidents/incidentByStatusesWeek&Mensual");
 const getMostCommonProblemsByCategoryAction = require("../actions/Incidents/MostCommonProblemsByCategory");
 const MonthlyEvolutionAction = require("../actions/Incidents/MensualEvolution");
+const getCommonProblemsPercentageTodayAction = require("../actions/Incidents/commonProblemsToday");
 
 module.exports = {
     name: "incidents",
@@ -37,5 +38,6 @@ module.exports = {
         getIncidentsByStatusMonthly: getIncidentsByStatusMonthlyAction.getIncidentsByStatusMonthly,
         getMostCommonProblemsByCategory: getMostCommonProblemsByCategoryAction.getMostCommonProblemsByCategory,
         MonthlyEvolution: MonthlyEvolutionAction.MonthlyEvolution,
+        getCommonProblemsPercentageToday: getCommonProblemsPercentageTodayAction.getCommonProblemsPercentageToday
     }
 };

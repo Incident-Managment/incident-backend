@@ -9,9 +9,9 @@ module.exports = {
         }
 
         const today = new Date();
-        today.setUTCHours(0, 0, 0, 0);
+        today.setHours(-7, 0, 0, 0);
         const tomorrow = new Date(today);
-        tomorrow.setUTCHours(23, 59, 59, 999);
+        tomorrow.setHours(40, 59, 59, 999);
 
         try {
             const count = await this.adapter.count({
