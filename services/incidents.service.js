@@ -36,6 +36,6 @@ module.exports = {
         getRecentIncidentsByCompany: getRecentIncidentsByCompanyAction.getRecentIncidentsByCompany,
         getIncidentsByStatusMonthly: getIncidentsByStatusMonthlyAction.getIncidentsByStatusMonthly,
         getMostCommonProblemsByCategory: getMostCommonProblemsByCategoryAction.getMostCommonProblemsByCategory,
-        MonthlyEvolution: MonthlyEvolutionAction.MonthlyEvolution
+        MonthlyEvolution: MonthlyEvolutionAction.MonthlyEvolution,
     }
 };
