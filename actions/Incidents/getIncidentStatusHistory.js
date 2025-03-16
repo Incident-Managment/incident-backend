@@ -50,8 +50,6 @@ module.exports = {
                 updatedAt: history.updatedAt
             }));
 
-            console.log("Status history with details:", statusHistoryWithDetails);
-
             statusHistoryWithDetails.sort((a, b) => a.id - b.id);
 
             return statusHistoryWithDetails;

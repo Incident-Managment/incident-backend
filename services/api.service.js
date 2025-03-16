@@ -73,6 +73,8 @@ module.exports = {
                     "GET /assigned_tasks/featureTechnicians": "assigned_tasks.featureTechnicians",
                     /* EXTERNAL */
                     "POST /slack/sendMessage": "slack.sendMessage",
+                    "POST /sms/send": "sendSMS.sendSMS",
+
 
                     /* STORAGE */
                     "POST /storage/uploadImage": "storageService.uploadImage",

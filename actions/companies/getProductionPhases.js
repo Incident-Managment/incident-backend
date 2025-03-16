@@ -10,7 +10,6 @@ module.exports = {
         try {
             const productionPhases = await this.adapter.find({
                 query: { company_id: companyId },
-                sort: { phase_order: 1 } // Orden ascendente (1 = ASC, -1 = DESC)
             });
 
             return productionPhases;

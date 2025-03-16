@@ -2,11 +2,15 @@
 
 module.exports = {
     async CreateAssignedTask(ctx) {
-        const { incident_id, assigned_user_id, company_id, assignment_date } = ctx.params;
+        const { incident_id, assigned_user_id, company_id } = ctx.params;
 
-        const user = await this.broker.call("users.get", { id: assigned_user_id });
-        if (user.role_id !== 4 || user.company_id !== 1) {
-            throw new Error("Only users with role_id 4 and company_id 1 can be assigned tasks");
+        const users = await ctx.call("users.getUsersGlobal", { id: assigned_user_id });
+
+        const user = users.find(u => u.id === assigned_user_id);
+
+        if (!user) {
+            console.error("User not found for ID:", assigned_user_id);
+            throw new Error("User not found");
         }
 
         try {
@@ -18,6 +22,19 @@ module.exports = {
                 createdAt: new Date(),
                 updatedAt: new Date()
             });
+
+            const phoneNumber = user.phone_number;
+            if (!phoneNumber) {
+                console.error("User phone number is missing for user ID:", assigned_user_id);
+                throw new Error("User phone number is missing");
+            }
+
+            const message = `You have been assigned a new incident with ID: ${incident_id}`;
+            console.log("Sending SMS to:", phoneNumber, "with message:", message);
+            // Commenting out the SMS sending to avoid making requests
+            // const smsResponse = await ctx.call("sendSMS.sendSMS", { to: phoneNumber, from: "6646141705", text: message });
+            // console.log("SMS response:", smsResponse);
+
             return newAssignedTask;
         } catch (error) {
             console.error("Error creating assigned task:", error);
