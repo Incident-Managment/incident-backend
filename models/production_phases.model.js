@@ -34,7 +34,7 @@ module.exports = {
         indexes: [
             {
                 unique: true,
-                fields: ['company_id', 'phase_order']
+                fields: ['company_id']
             }
         ],
         timestamps: false,

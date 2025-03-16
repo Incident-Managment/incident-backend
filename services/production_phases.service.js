@@ -12,7 +12,7 @@ module.exports = {
     adapter: adapter,
     model: productionPhasesModel,
     settings: {
-        fields: ["id", "name", "phase_order", "company_id", "is_active", "creation_date"],
+        fields: ["id", "name", "company_id", "is_active", "creation_date"],
     },
     actions: {
         getProductionPhasesByCompany: getProductionPhasesByCompanyIdAction.getProductionPhasesByCompany,
