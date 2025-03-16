@@ -11,9 +11,6 @@ module.exports = {
     mixins: [DbService],
     adapter: adapter,
     model: productionPhasesModel,
-    settings: {
-        fields: ["id", "name", "company_id", "is_active", "creation_date"],
-    },
     actions: {
         getProductionPhasesByCompany: getProductionPhasesByCompanyIdAction.getProductionPhasesByCompany,
         createProductionPhase: createProductionPhaseAction.createProductionPhase,

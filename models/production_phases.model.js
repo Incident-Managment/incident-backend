@@ -31,16 +31,7 @@ module.exports = {
         }
     },
     options: {
-        indexes: [
-            {
-                unique: true,
-                fields: ['company_id']
-            }
-        ],
         timestamps: false,
         logging: false // Desactiva los logs
     },
-    associations: function(models) {
-        this.belongsTo(models.companies, { foreignKey: 'company_id', as: 'company' });
-    }
 };
