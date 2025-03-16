@@ -13,10 +13,6 @@ module.exports = {
             type: Sequelize.STRING,
             allowNull: false
         },
-        phase_order: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
         company_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
