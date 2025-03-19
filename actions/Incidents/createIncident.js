@@ -11,6 +11,8 @@ module.exports = {
             user_id,
             machine_id,
             company_id,
+            creation_date,
+            update_date,
             production_phase_id,
             imagePath,
         } = ctx.params;
@@ -58,8 +60,8 @@ module.exports = {
             company_id,
             production_phase_id,
             image_cloudinary: image_cloudinary || { secure_url: "https://example.com/default/incidents.jpg", public_id: "incidents/default" }, // Asegúrate de que no sea null
-            creation_date: now,
-            update_date: now,
+            creation_date: creation_date || now,
+            update_date: update_date || now,
         });
 
         try {

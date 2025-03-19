@@ -1,86 +1,42 @@
-version: "3.3"
+version: "3.8"
 
 services:
-
-  api:
-    build:
-      context: .
-    image: incident-backend
-    env_file: docker-compose.env
-    environment:
-      SERVICES: api
-      PORT: 3000
+  moleculer:
+    build: .
+    ports:
+      - "3000:3000"
     depends_on:
-      - nats
+      - postgres
       - redis
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.api-gw.rule=PathPrefix(`/`)"
-      - "traefik.http.services.api-gw.loadbalancer.server.port=3000"
-    networks:
-      - internal
-
-  greeter:
-    build:
-      context: .
-    image: incident-backend
-    env_file: docker-compose.env
     environment:
-      SERVICES: greeter
-    depends_on:
-      - nats
-      - redis
-    networks:
-      - internal
+      POSTGRES_HOST: "178.16.142.77"
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB: "incidentdb"
+      POSTGRES_USER: "adminsp"
+      POSTGRES_PASSWORD: "4SxYdhnha3g6uhgndTvD"
+      REDIS_HOST: "redis"
+      REDIS_PORT: "6379"
 
-  products:
-    build:
-      context: .
-    image: incident-backend
-    env_file: docker-compose.env
+  postgres:
+    image: postgres:16
+    container_name: postgres_db
+    ports:
+      - "5432:5432"
     environment:
-      SERVICES: products
-    depends_on:
-      - mongo
-      - nats
-      - redis
-    networks:
-      - internal
-
-  mongo:
-    image: mongo:4
+      POSTGRES_DB: "incidentdb"
+      POSTGRES_USER: "adminsp"
+      POSTGRES_PASSWORD: "4SxYdhnha3g6uhgndTvD"
     volumes:
-      - data:/data/db
-    networks:
-      - internal
-
-  nats:
-    image: nats:2
-    networks:
-      - internal
+      - postgres_data:/var/lib/postgresql/data
 
   redis:
-    image: redis:alpine
-    networks:
-      - internal
-
-  traefik:
-    image: traefik:v2.4
-    command:
-      - "--api.insecure=true" # Don't do that in production!
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
+    image: redis:7
+    container_name: redis_cache
     ports:
-      - 3000:80
-      - 3001:8080
+      - "6379:6379"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    networks:
-      - internal
-      - default
-
-networks:
-  internal:
+      - redis_data:/data
 
 volumes:
-  data:
+  postgres_data:
+  redis_data:

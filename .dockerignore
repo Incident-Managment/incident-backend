@@ -4,3 +4,7 @@ Dockerfile
 node_modules
 test
 .vscode
+node_modules
+.git
+Dockerfile
+logs
