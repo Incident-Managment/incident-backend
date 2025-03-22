@@ -41,6 +41,7 @@
     "moleculer-db-adapter-sequelize": "^0.2.18",
     "moleculer-web": "^0.10.7",
     "nats": "^2.29.1",
+    "nodemailer": "^6.10.0",
     "pg": "^8.13.1",
     "timezone": "link:dayjs\\plugin\\timezone",
     "twilio": "^5.4.2",
