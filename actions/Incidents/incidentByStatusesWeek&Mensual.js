@@ -17,34 +17,39 @@ module.exports = {
 
             result.forEach(incident => {
                 const date = new Date(incident.creation_date);
+                const year = date.getFullYear();
                 const monthIndex = date.getMonth();
                 const monthName = months[monthIndex]; // Nombre del mes
                 const weekNumber = Math.ceil(date.getDate() / 7); // Número de semana en el mes
                 const status = incident.status.name;
 
                 // Inicializar estructuras si no existen
-                if (!incidentsData[monthName]) {
-                    incidentsData[monthName] = {
+                if (!incidentsData[year]) {
+                    incidentsData[year] = {};
+                }
+
+                if (!incidentsData[year][monthName]) {
+                    incidentsData[year][monthName] = {
                         weekly: {},
                         monthly: {}
                     };
                 }
 
-                if (!incidentsData[monthName].weekly[weekNumber]) {
-                    incidentsData[monthName].weekly[weekNumber] = {};
+                if (!incidentsData[year][monthName].weekly[weekNumber]) {
+                    incidentsData[year][monthName].weekly[weekNumber] = {};
                 }
 
-                if (!incidentsData[monthName].monthly[status]) {
-                    incidentsData[monthName].monthly[status] = 0;
+                if (!incidentsData[year][monthName].monthly[status]) {
+                    incidentsData[year][monthName].monthly[status] = 0;
                 }
 
-                if (!incidentsData[monthName].weekly[weekNumber][status]) {
-                    incidentsData[monthName].weekly[weekNumber][status] = 0;
+                if (!incidentsData[year][monthName].weekly[weekNumber][status]) {
+                    incidentsData[year][monthName].weekly[weekNumber][status] = 0;
                 }
 
                 // Incrementar conteo
-                incidentsData[monthName].monthly[status]++;
-                incidentsData[monthName].weekly[weekNumber][status]++;
+                incidentsData[year][monthName].monthly[status]++;
+                incidentsData[year][monthName].weekly[weekNumber][status]++;
             });
 
             return { incidentsData };
