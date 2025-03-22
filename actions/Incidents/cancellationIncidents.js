@@ -1,33 +1,46 @@
-// Install the Vonage SDK
-// Run the following command in your terminal:
-// npm install @vonage/server-sdk
+"use strict";
 
-// Import the Vonage SDK
-const { Vonage } = require('@vonage/server-sdk');
+module.exports = {
+    async cancelIncident(ctx) {
+        const { incident_id, comments, user_id } = ctx.params;
 
-// Initialize the Vonage instance with your API credentials
-const vonage = new Vonage({
-  apiKey: "dc8415bf",
-  apiSecret: "xqlliMj2XalumJG9"
-});
+        try {
+            const incident = await this.adapter.findOne({ id: incident_id});
 
-// Define the sender, recipient, and message text
-const from = "Vonage APIs";
-const to = "526646141705";
-const text = 'A text message sent using the Vonage SMS API';
+            if (!incident) {
+                throw new Error("Incident not found");
+            }
 
-// Function to send SMS
-async function sendSMS() {
-    await vonage.sms.send({to, from, text})
-        .then(resp => { 
-            console.log('Message sent successfully'); 
-            console.log(resp); 
-        })
-        .catch(err => { 
-            console.log('There was an error sending the messages.'); 
-            console.error(err); 
-        });
-}
+            const updatedIncident = await this.adapter.updateById(incident_id, {
+                $set: {
+                    status_id: 4,
+                    update_date: new Date()
+                },
+                $push: {
+                    comments: {
+                        user_id,
+                        comment: comments,
+                        date: new Date()
+                    }
+                }
+            });
 
-// Call the function to send the SMS
-sendSMS();
+            await ctx.call("incident_status_history.createIncidentHistory", {
+                incident_id: incident_id,
+                previous_status_id: incident.status_id,
+                new_status_id: 4,
+                comment: comments,
+                user_id,
+                company_id: incident.company_id
+            });
+
+            ctx.emit("incident.cancelled", { incident: updatedIncident });
+            this.logger.info("Incidencia cancelada con éxito:", updatedIncident);
+
+            return updatedIncident;
+        } catch (err) {
+            this.logger.error("Error al cancelar la incidencia:", err);
+            throw new Error("Error al cancelar la incidencia");
+        }
+    }
+};

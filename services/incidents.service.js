@@ -16,6 +16,7 @@ const getIncidentsByStatusMonthlyAction = require("../actions/Incidents/incident
 const getMostCommonProblemsByCategoryAction = require("../actions/Incidents/MostCommonProblemsByCategory");
 const MonthlyEvolutionAction = require("../actions/Incidents/MensualEvolution");
 const getCommonProblemsPercentageTodayAction = require("../actions/Incidents/commonProblemsToday");
+const cancelIncidentAction = require("../actions/Incidents/cancellationIncidents");
 
 module.exports = {
     name: "incidents",
@@ -23,7 +24,7 @@ module.exports = {
     adapter: adapter,
     model: incidentsModel,
     settings: {
-        fields: ["id", "title", "description", "status_id", "priority_id", "category_id", "user_id", "machine_id", "company_id", "production_phase_id", "creation_date", "update_date"],
+        fields: ["id", "title", "description", "status_id", "priority_id", "category_id", "user_id", "machine_id", "company_id", "production_phase_id", "creation_date", "update_date", "comments"],
     },
     actions: {
         getIncidentsByCompany: getIncidentsByCompanyIdAction.getIncidentsByCompany,
@@ -38,6 +39,7 @@ module.exports = {
         getIncidentsByStatusMonthly: getIncidentsByStatusMonthlyAction.getIncidentsByStatusMonthly,
         getMostCommonProblemsByCategory: getMostCommonProblemsByCategoryAction.getMostCommonProblemsByCategory,
         MonthlyEvolution: MonthlyEvolutionAction.MonthlyEvolution,
-        getCommonProblemsPercentageToday: getCommonProblemsPercentageTodayAction.getCommonProblemsPercentageToday
+        getCommonProblemsPercentageToday: getCommonProblemsPercentageTodayAction.getCommonProblemsPercentageToday,
+        cancelIncident: cancelIncidentAction.cancelIncident
     }
 };

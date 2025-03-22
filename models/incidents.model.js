@@ -82,6 +82,10 @@ module.exports = {
         update_date: {
             type: Sequelize.DATE,
             defaultValue: Sequelize.NOW
+        },
+        comments: {
+            type: Sequelize.TEXT,
+            allowNull: true
         }
     },
     options: {
