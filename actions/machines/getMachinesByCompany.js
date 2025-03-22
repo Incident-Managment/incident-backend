@@ -16,7 +16,7 @@ module.exports = {
             const companyIds = [...new Set(machines.map(machine => machine.company_id))];
 
             const [types, companies] = await Promise.all([
-                ctx.call("machine_types.find", { id: typeIds }),
+                ctx.call("machine_types.findMachineTypes", { id: typeIds }),
                 ctx.call("companies.find", { id: companyIds })
             ]);
 
