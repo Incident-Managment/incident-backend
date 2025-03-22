@@ -17,6 +17,8 @@ const getMostCommonProblemsByCategoryAction = require("../actions/Incidents/Most
 const MonthlyEvolutionAction = require("../actions/Incidents/MensualEvolution");
 const getCommonProblemsPercentageTodayAction = require("../actions/Incidents/commonProblemsToday");
 const cancelIncidentAction = require("../actions/Incidents/cancellationIncidents");
+const getIncidentsByDateRangeAction = require("../actions/Incidents/getIncidentsByDateRange");
+const downloadReportAction = require("../actions/Incidents/downloadReport");
 
 module.exports = {
     name: "incidents",
@@ -40,6 +42,8 @@ module.exports = {
         getMostCommonProblemsByCategory: getMostCommonProblemsByCategoryAction.getMostCommonProblemsByCategory,
         MonthlyEvolution: MonthlyEvolutionAction.MonthlyEvolution,
         getCommonProblemsPercentageToday: getCommonProblemsPercentageTodayAction.getCommonProblemsPercentageToday,
-        cancelIncident: cancelIncidentAction.cancelIncident
+        cancelIncident: cancelIncidentAction.cancelIncident,
+        getIncidentsByDateRange: getIncidentsByDateRangeAction.getIncidentsByDateRange,
+        downloadReport: downloadReportAction.downloadReport
     }
 };

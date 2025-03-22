@@ -5,7 +5,7 @@ module.exports = {
     name: "emailService",
     actions: {
         async sendIncidentNotification(ctx) {
-            const { to, subject, html } = ctx.params;
+            const { to, subject, html, attachments } = ctx.params;
 
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
@@ -19,7 +19,8 @@ module.exports = {
                 from: process.env.EMAIL_FROM,
                 to,
                 subject,
-                html
+                html,
+                attachments
             };
 
             try {

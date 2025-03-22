@@ -67,6 +67,8 @@ module.exports = {
                     "GET /incidents/mostCommonProblemsByCategory": "incidents.getMostCommonProblemsByCategory",
                     "GET /incidents/commonProblemsPercentageToday": "incidents.getCommonProblemsPercentageToday",
                     "PUT /incidents/cancelIncident": "incidents.cancelIncident",
+                    "POST /incidents/getIncidentsByDateRange": "incidents.getIncidentsByDateRange",
+                    "GET /incidents/downloadReport": "incidents.downloadReport",
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",

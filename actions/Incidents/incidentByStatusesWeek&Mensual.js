@@ -7,7 +7,6 @@ module.exports = {
 
             const result = await ctx.call("incidents.getIncidentsByCompany", { companyId });
 
-            // Mapeo de los índices de los meses a nombres
             const months = [
                 "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
@@ -19,11 +18,10 @@ module.exports = {
                 const date = new Date(incident.creation_date);
                 const year = date.getFullYear();
                 const monthIndex = date.getMonth();
-                const monthName = months[monthIndex]; // Nombre del mes
-                const weekNumber = Math.ceil(date.getDate() / 7); // Número de semana en el mes
+                const monthName = months[monthIndex];
+                const weekNumber = Math.ceil(date.getDate() / 7);
                 const status = incident.status.name;
 
-                // Inicializar estructuras si no existen
                 if (!incidentsData[year]) {
                     incidentsData[year] = {};
                 }
@@ -47,7 +45,6 @@ module.exports = {
                     incidentsData[year][monthName].weekly[weekNumber][status] = 0;
                 }
 
-                // Incrementar conteo
                 incidentsData[year][monthName].monthly[status]++;
                 incidentsData[year][monthName].weekly[weekNumber][status]++;
             });
