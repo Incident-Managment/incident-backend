@@ -29,6 +29,7 @@ module.exports = {
                     "GET /users/:id": "users.get",
                     "GET /users/techniqueUsersByRoleAndCompany": "users.getTechniqueUsersByRoleAndCompany",
                     "PUT /users/updateUser": "users.updateUser",
+                    "GET /users/getUsersByCompany": "users.getUsersByCompany",
                     /* COMPANIES */
                     "GET /companies/getCompaniesGlobal": "companies.getCompaniesGlobal",
                     "GET /prioritiesByCompany": "priorities.getPrioritiesByCompany",

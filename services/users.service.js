@@ -9,7 +9,7 @@ const getUsersGlobalAction = require("../actions/users/getUsers");
 const getUserByIdAction = require("../actions/users/getUserById");
 const getTechniqueUsersByRoleAndCompanyAction = require("../actions/users/getTechinqueUsers");
 const updateUserAction = require("../actions/users/updateUser"); //Importa la acción de editar
-
+const getUsersByCompanyAction = require("../actions/users/getUsersByCompany");
 module.exports = {
     name: "users",
     mixins: [DbService],
@@ -26,5 +26,6 @@ module.exports = {
         getUserById: getUserByIdAction.getUserById,
         getTechniqueUsersByRoleAndCompany: getTechniqueUsersByRoleAndCompanyAction.getTechniqueUsersByRoleAndCompany,
         updateUser: updateUserAction.updateUser,
+        getUsersByCompany: getUsersByCompanyAction.getUsersByCompany
     }
 };
