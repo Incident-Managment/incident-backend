@@ -23,7 +23,7 @@ module.exports = {
                 ctx.call("priorities.find", { id: priorityIds }),
                 ctx.call("categories.find", { id: categoryIds }),
                 ctx.call("users.find", { id: userIds }),
-                ctx.call("machines.find", { id: machineIds }),
+                ctx.call("machines.getMachinesGlobal", { id: machineIds }),
                 ctx.call("production_phases.find", { id: productionPhaseIds }),
                 ctx.call("assigned_tasks.findAssignedTasks", { query: { incident_id: incidentIds } }),
                 ctx.call("companies.get", { id: companyId })
