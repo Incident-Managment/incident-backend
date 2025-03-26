@@ -11,10 +11,12 @@ module.exports = {
             }
             
             const startOfDay = new Date();
-            startOfDay.setHours(-7, 0, 0, 0);
+            startOfDay.setHours(startOfDay.getHours() - 25);
+            startOfDay.setMinutes(0, 0, 0);
+    
             const endOfDay = new Date(startOfDay);
-            endOfDay.setHours(40, 59, 59, 999);
-
+            endOfDay.setHours(23, 59, 59, 999);
+    
             const result = await this.adapter.find({
                 query: {
                     company_id: companyId,
