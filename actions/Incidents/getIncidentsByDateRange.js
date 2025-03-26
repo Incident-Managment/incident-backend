@@ -11,19 +11,10 @@ module.exports = {
         }
 
         try {
-            const now = new Date();
-            now.setHours(now.getHours() - 25, 0, 0, 0);
-            
-            const endOfToday = new Date();
-            endOfToday.setHours(23, 59, 59, 999);
-            
-            const startDate = now;
-            const endDate = endOfToday;
-            
             const incidents = await this.adapter.find({
                 query: {
                     company_id: companyId,
-                    creation_date: { [Op.between]: [startDate, endDate] }
+                    creation_date: { [Op.between]: [new Date(startDate), new Date(endDate)] }
                 }
             });
 
