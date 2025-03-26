@@ -1,4 +1,3 @@
-"use strict";
 const ExcelJS = require('exceljs');
 const { Op } = require('sequelize');
 const fs = require('fs');
@@ -12,170 +11,90 @@ module.exports = {
         }
 
         try {
+            const now = new Date();
+            now.setHours(now.getHours() - 25, 0, 0, 0);
+            
+            const endOfToday = new Date();
+            endOfToday.setHours(23, 59, 59, 999);
+            
+            const startDate = now;
+            const endDate = endOfToday;
+            
             const incidents = await this.adapter.find({
                 query: {
                     company_id: companyId,
-                    creation_date: { [Op.between]: [new Date(startDate), new Date(endDate)] }
+                    creation_date: { [Op.between]: [startDate, endDate] }
                 }
             });
 
-            const statusIds = [...new Set(incidents.map(incident => incident.status_id))];
-            const priorityIds = [...new Set(incidents.map(incident => incident.priority_id))];
-            const categoryIds = [...new Set(incidents.map(incident => incident.category_id))];
-            const userIds = [...new Set(incidents.map(incident => incident.user_id))];
-            const machineIds = [...new Set(incidents.map(incident => incident.machine_id))];
-            const productionPhaseIds = [...new Set(incidents.map(incident => incident.production_phase_id))];
-            const incidentIds = incidents.map(incident => incident.id);
+            if (!incidents.length) {
+                return { message: 'No incidents found in the given date range' };
+            }
 
-            const [statuses, priorities, categories, users, machines, productionPhases, assignedTasks, company] = await Promise.all([
-                ctx.call("statuses.find", { id: statusIds }),
-                ctx.call("priorities.find", { id: priorityIds }),
-                ctx.call("categories.find", { id: categoryIds }),
-                ctx.call("users.find", { id: userIds }),
-                ctx.call("machines.find", { id: machineIds }),
-                ctx.call("production_phases.find", { id: productionPhaseIds }),
-                ctx.call("assigned_tasks.findAssignedTasks", { query: { incident_id: incidentIds } }),
-                ctx.call("companies.get", { id: companyId })
-            ]);
-
-            const statusMap = statuses.reduce((acc, status) => {
-                acc[status.id] = status.name;
-                return acc;
-            }, {});
-
-            const priorityMap = priorities.reduce((acc, priority) => {
-                acc[priority.id] = priority.name;
-                return acc;
-            }, {});
-
-            const categoryMap = categories.reduce((acc, category) => {
-                acc[category.id] = category.name;
-                return acc;
-            }, {});
-
-            const userMap = users.reduce((acc, user) => {
-                acc[user.id] = { name: user.name, email: user.email };
-                return acc;
-            }, {});
-
-            const machineMap = machines.reduce((acc, machine) => {
-                acc[machine.id] = machine.name;
-                return acc;
-            }, {});
-
-            const productionPhaseMap = productionPhases.reduce((acc, phase) => {
-                acc[phase.id] = phase.name;
-                return acc;
-            }, {});
-
-            const assignedTaskMap = assignedTasks.reduce((acc, task) => {
-                acc[task.incident_id] = {
-                    id: task.id,
-                    assigned_user_id: task.assigned_user_id,
-                    company_id: task.company_id,
-                    assignment_date: task.assignment_date,
-                    createdAt: task.createdAt,
-                    updatedAt: task.updatedAt
-                };
-                return acc;
-            }, {});
-
-            const incidentsWithDetails = incidents.map(incident => ({
-                id: incident.id,
-                title: incident.title,
-                description: incident.description,
-                status: {
-                    id: incident.status_id,
-                    name: statusMap[incident.status_id]
-                },
-                priority: {
-                    id: incident.priority_id,
-                    name: priorityMap[incident.priority_id]
-                },
-                category: {
-                    id: incident.category_id,
-                    name: categoryMap[incident.category_id]
-                },
-                user: {
-                    id: incident.user_id,
-                    name: userMap[incident.user_id].name,
-                    email: userMap[incident.user_id].email
-                },
-                machine: {
-                    id: incident.machine_id,
-                    name: machineMap[incident.machine_id]
-                },
-                production_phase: {
-                    id: incident.production_phase_id,
-                    name: productionPhaseMap[incident.production_phase_id]
-                },
-                assigned_task: assignedTaskMap[incident.id] || null,
-                company: {
-                    id: company.id,
-                    name: company.name
-                },
-                creation_date: incident.creation_date,
-                update_date: incident.update_date
-            }));
-
-            incidentsWithDetails.sort((a, b) => a.id - b.id);
-
-            // Generar el reporte en Excel
-            const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Incidents Report');
-
-            worksheet.columns = [
-                { header: 'Title', key: 'title', width: 30 },
-                { header: 'Description', key: 'description', width: 30 },
-                { header: 'Status', key: 'status', width: 15 },
-                { header: 'Priority', key: 'priority', width: 15 },
-                { header: 'Category', key: 'category', width: 15 },
-                { header: 'User', key: 'user', width: 20 },
-                { header: 'Machine', key: 'machine', width: 20 },
-                { header: 'Production Phase', key: 'production_phase', width: 20 },
-                { header: 'Assigned Task', key: 'assigned_task', width: 20 },
-                { header: 'Company', key: 'company', width: 20 },
-                { header: 'Creation Date', key: 'creation_date', width: 20 },
-                { header: 'Update Date', key: 'update_date', width: 20 }
+            const ids = (key) => [...new Set(incidents.map(i => i[key]).filter(Boolean))];
+            const queries = [
+                { name: "statuses", ids: ids("status_id") },
+                { name: "priorities", ids: ids("priority_id") },
+                { name: "categories", ids: ids("category_id") },
+                { name: "users", ids: ids("user_id") },
+                { name: "machines", ids: ids("machine_id") },
+                { name: "production_phases", ids: ids("production_phase_id") }
             ];
 
-            incidentsWithDetails.forEach(incident => {
-                worksheet.addRow({
-                    title: incident.title,
-                    description: incident.description,
-                    status: incident.status.name,
-                    priority: incident.priority.name,
-                    category: incident.category.name,
-                    user: `${incident.user.name} (${incident.user.email})`,
-                    machine: incident.machine.name,
-                    production_phase: incident.production_phase.name,
-                    assigned_task: incident.assigned_task ? incident.assigned_task.id : 'N/A',
-                    company: incident.company.name,
-                    creation_date: incident.creation_date,
-                    update_date: incident.update_date
-                });
+            const data = await Promise.all(queries.map(q =>
+                q.ids.length ? ctx.call(`${q.name}.find`, { query: { id: q.ids } }) : []
+            ));
+
+            const maps = queries.reduce((acc, q, index) => {
+                acc[q.name] = new Map(data[index].map(item => [item.id, item]));
+                return acc;
+            }, {});
+
+            const assignedTasks = await ctx.call("assigned_tasks.findAssignedTasks", {
+                query: { incident_id: ids("id") }
             });
+            const taskMap = new Map(assignedTasks.map(task => [task.incident_id, task]));
+
+            const company = await ctx.call("companies.get", { id: companyId });
+
+            const incidentRows = incidents.map(incident => [
+                incident.title,
+                incident.description,
+                maps.statuses.get(incident.status_id)?.name || 'N/A',
+                maps.priorities.get(incident.priority_id)?.name || 'N/A',
+                maps.categories.get(incident.category_id)?.name || 'N/A',
+                maps.users.get(incident.user_id)?.name || 'N/A',
+                maps.machines.get(incident.machine_id)?.name || 'N/A',
+                maps.production_phases.get(incident.production_phase_id)?.name || 'N/A',
+                taskMap.get(incident.id)?.id || 'N/A',
+                company.name,
+                incident.creation_date,
+                incident.update_date
+            ]);
+
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Incidents Report');
+            worksheet.addRows([
+                ['Title', 'Description', 'Status', 'Priority', 'Category', 'User', 'Machine', 'Production Phase', 'Assigned Task', 'Company', 'Creation Date', 'Update Date'],
+                ...incidentRows
+            ]);
 
             const buffer = await workbook.xlsx.writeBuffer();
-
             const templatePath = path.join(__dirname, '../../templates/report-template.html');
-            let htmlTemplate = fs.readFileSync(templatePath, 'utf8');
-
-            htmlTemplate = htmlTemplate.replace('COMPANY_ID', companyId);
-            htmlTemplate = htmlTemplate.replace('START_DATE', startDate);
-            htmlTemplate = htmlTemplate.replace('END_DATE', endDate);
+            let htmlTemplate = fs.readFileSync(templatePath, 'utf8')
+                .replace('COMPANY_ID', companyId)
+                .replace('START_DATE', startDate)
+                .replace('END_DATE', endDate);
 
             await ctx.call('emailService.sendIncidentNotification', {
                 to: email,
                 subject: 'Incidents Report',
                 html: htmlTemplate,
-                attachments: [
-                    {
-                        filename: `Incidents_Report_${companyId}_${startDate}_${endDate}.xlsx`,
-                        content: buffer,
-                        contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                    }
-                ]
+                attachments: [{
+                    filename: `Incidents_Report_${companyId}_${startDate}_${endDate}.xlsx`,
+                    content: buffer,
+                    contentType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                }]
             });
 
             return { message: 'Report generated and sent successfully' };
