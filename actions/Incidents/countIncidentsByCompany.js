@@ -9,7 +9,7 @@ module.exports = {
         }
 
         const today = new Date();
-        today.setHours(today.getHours() - 23);
+        today.setHours(today.getHours() - 25);
         today.setMinutes(0, 0, 0);
 
         const tomorrow = new Date(today);
