@@ -9,9 +9,11 @@ module.exports = {
         }
 
         const today = new Date();
-        today.setHours(-7, 0, 0, 0);
-        const endOfDay = new Date(today);
-        endOfDay.setHours(40, 59, 59, 999);
+        today.setHours(today.getHours() - 25);
+        today.setMinutes(0, 0, 0);
+
+        const tomorrow = new Date(today);
+        tomorrow.setHours(23, 59, 59, 999);
 
         try {
             const count = await this.adapter.count({
