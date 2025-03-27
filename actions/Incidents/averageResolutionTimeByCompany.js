@@ -1,4 +1,5 @@
 "use strict";
+const { Op } = require("sequelize");
 
 module.exports = {
     async averageResolutionTimeByCompany(ctx) {
@@ -7,8 +8,28 @@ module.exports = {
             throw new Error("Company ID is required");
         }
 
+        const today = new Date();
+        today.setHours(today.getHours() - 25);
+        today.setMinutes(0, 0, 0);
+
+        const tomorrow = new Date(today);
+        tomorrow.setHours(23, 59, 59, 999);
+        console.log("Today:", today);
+        console.log("Tomorrow:", tomorrow);
+
         try {
-            const incidents = await this.adapter.find({ query: { company_id: companyId, status_id: 3 } });
+            const query = {
+                company_id: companyId,
+                status_id: 3,
+                creation_date: {
+                    [Op.between]: [today, tomorrow]
+                }
+            };
+
+            console.log("Query being executed:", query);
+
+            const incidents = await this.adapter.find({ query });
+
             if (incidents.length === 0) {
                 return { averageResolutionTime: 0 };
             }
@@ -16,7 +37,7 @@ module.exports = {
             const totalResolutionTime = incidents.reduce((total, incident) => {
                 const creationDate = new Date(incident.creation_date);
                 const updateDate = new Date(incident.update_date);
-                const resolutionTime = (updateDate - creationDate) / (1000 * 60 * 60); // Convert milliseconds to hours
+                const resolutionTime = (updateDate - creationDate) / (1000 * 60 * 60);
                 return total + resolutionTime;
             }, 0);
 
