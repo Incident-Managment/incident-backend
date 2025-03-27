@@ -14,8 +14,6 @@ module.exports = {
 
         const tomorrow = new Date(today);
         tomorrow.setHours(23, 59, 59, 999);
-        console.log("Today:", today);
-        console.log("Tomorrow:", tomorrow);
 
         try {
             const query = {
@@ -25,8 +23,6 @@ module.exports = {
                     [Op.between]: [today, tomorrow]
                 }
             };
-
-            console.log("Query being executed:", query);
 
             const incidents = await this.adapter.find({ query });
 
