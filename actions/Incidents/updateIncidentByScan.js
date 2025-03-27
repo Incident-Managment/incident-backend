@@ -39,10 +39,13 @@ module.exports = {
             throw new Error("El incidente no está en un estado válido y no puede ser actualizado.");
         }
 
+        const adjustedUpdateDate = new Date();
+        adjustedUpdateDate.setHours(adjustedUpdateDate.getHours() - 7);
+
         const updatedIncident = await this.adapter.updateById(incident_id, {
             $set: {
                 status_id: newStatus,
-                update_date: new Date(),
+                update_date: adjustedUpdateDate,
             },
         });
 
