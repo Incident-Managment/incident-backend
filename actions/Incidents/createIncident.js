@@ -43,7 +43,7 @@ module.exports = {
         }
 
         const now = new Date();
-        now.setHours(now.getHours() - 14);
+        now.setHours(now.getHours() - 7);
 
         try {
             const incident = await this.adapter.insert({
