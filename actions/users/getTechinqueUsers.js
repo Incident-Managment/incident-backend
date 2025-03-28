@@ -9,6 +9,7 @@ module.exports = {
     async getTechniqueUsersByRoleAndCompany (ctx) {
         try {
             const users = await this.adapter.find();
+            console.log("Users:", users);
 
             const roleIds = [...new Set(users.map(user => user.role_id))];
             const companyIds = [...new Set(users.map(user => user.company_id))];
@@ -29,13 +30,9 @@ module.exports = {
             }, {});
 
             const today = dayjs().tz('America/Tijuana').format('YYYY-MM-DD HH:mm:ss');
-            console.log("Today's date:", today);
 
             const tasks = await ctx.call("assigned_tasks.find");
-
-            tasks.forEach(task => {
-                console.log("Task assignment date:", dayjs(task.assignment_date).tz('America/Tijuana').format('YYYY-MM-DD'));
-            });
+            console.log("Tasks:", tasks);
 
             const todayTasks = tasks.filter(task => {
                 const taskDate = dayjs(task.assignment_date).tz('America/Tijuana').format('YYYY-MM-DD');
