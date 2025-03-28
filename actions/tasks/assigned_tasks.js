@@ -21,8 +21,7 @@ module.exports = {
         }
 
         try {
-            const now = dayjs().tz('America/Tijuana').toDate();
-
+            const now = dayjs().tz('America/Tijuana').format('YYYY-MM-DD HH:mm:ss');
             const newAssignedTask = await this.adapter.insert({
                 incident_id,
                 assigned_user_id,
