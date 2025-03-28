@@ -13,7 +13,7 @@ module.exports = {
     adapter: adapter,
     model: MachinesModel,
     settings: {
-        fields: ["id", "name", "type_id", "company_id"]
+        fields: ["id", "name", "type_id", "company_id", "production_phase_id", "status"]
     },
     actions: {
         getMachinesGlobal: getMachinesAction.getMachinesGlobal,

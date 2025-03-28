@@ -35,7 +35,19 @@ module.exports = {
             references: {
                 model: 'companies',
                 key: 'id'
-            }
+            },
+        },
+        status: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
+        description: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        creation_date: {
+            type: Sequelize.DATE,
+            allowNull: false
         }
     },
     options: {

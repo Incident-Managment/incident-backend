@@ -7,6 +7,7 @@ module.exports = {
                 name: machineData.name,
                 description: machineData.description,
                 type_id: machineData.type_id,
+                status: machineData.status,
                 company_id: machineData.company_id,
                 creation_date: new Date(),
             });

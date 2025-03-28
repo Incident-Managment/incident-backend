@@ -3,9 +3,10 @@ module.exports = {
     params: {
         name: { type: "string", min: 2 ,required: true},
         description: { type: "string", required: true },
+        status: { type: "string", required: true},
         type_id: { type: "number" , required: true},
         company_id: { type: "number" , required: true},
-        production_phase_id: { type: "number", required: true }
+        production_phase_id: { type: "number", required: true },
     },
     async handler(ctx) {
         const { Errors } = require("moleculer");
@@ -13,7 +14,7 @@ module.exports = {
         try{ 
         
         console.log("---------------------", this.params);
-        const { name, description, type_id, company_id, production_phase_id } = ctx.params;
+        const { name, description, type_id, company_id, production_phase_id , status} = ctx.params;
         
         const phase= await  ctx.call("production_phases.get", { id:  production_phase_id });
         if (!phase || phase.length === 0) {
@@ -23,9 +24,10 @@ module.exports = {
         return this.adapter.insert({
             name,
             description,
+            status, 
             type_id,
             company_id,
-            production_phase_id,            
+            production_phase_id,       
             creation_date: new Date()
         });
     }catch (error) {
