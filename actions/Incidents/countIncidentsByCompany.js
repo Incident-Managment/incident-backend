@@ -1,5 +1,11 @@
 "use strict";
 const { Op } = require("sequelize");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 module.exports = {
     async countIncidentsByCompany(ctx) {
@@ -8,15 +14,11 @@ module.exports = {
             throw new Error("Company ID is required");
         }
 
-        const today = new Date();
-        today.setHours(today.getHours() - 30);
-        today.setMinutes(0, 0, 0);
+        const today = dayjs().tz('America/Tijuana').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        const tomorrow = dayjs().tz('America/Tijuana').endOf('day').format('YYYY-MM-DD HH:mm:ss');
 
-        const tomorrow = new Date(today);
-        tomorrow.setHours(23, 59, 59, 999);
-
-        console.log(today)
-        console.log(tomorrow)
+        console.log("Today:", today);
+        console.log("Tomorrow:", tomorrow);
 
         try {
             const count = await this.adapter.count({
