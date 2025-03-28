@@ -15,6 +15,9 @@ module.exports = {
         const tomorrow = new Date(today);
         tomorrow.setHours(23, 59, 59, 999);
 
+        console.log(today)
+        console.log(tomorrow)
+
         try {
             const count = await this.adapter.count({
                 query: {
