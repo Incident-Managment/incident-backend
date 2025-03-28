@@ -1,5 +1,12 @@
 "use strict";
 
+const dayjs = require('dayjs');
+const utc = require('dayjs/plugin/utc');
+const timezone = require('dayjs/plugin/timezone');
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
 module.exports = {
     async CreateAssignedTask(ctx) {
         const { incident_id, assigned_user_id, company_id } = ctx.params;
@@ -14,13 +21,15 @@ module.exports = {
         }
 
         try {
+            const now = dayjs().tz('America/Tijuana').toDate();
+
             const newAssignedTask = await this.adapter.insert({
                 incident_id,
                 assigned_user_id,
                 company_id,
-                assignment_date: new Date(),
-                createdAt: new Date(),
-                updatedAt: new Date()
+                assignment_date: now,
+                createdAt: now,
+                updatedAt: now
             });
 
             const phoneNumber = user.phone_number;
