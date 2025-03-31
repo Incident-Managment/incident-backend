@@ -16,6 +16,12 @@ module.exports = {
 
             result.forEach(incident => {
                 const date = new Date(incident.creation_date);
+                const year = date.getFullYear();
+
+                if (year !== 2025) {
+                    return;
+                }
+
                 const monthIndex = date.getMonth();
                 const monthName = months[monthIndex];
                 const status = incident.status.name;
