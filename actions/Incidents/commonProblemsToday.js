@@ -1,6 +1,12 @@
 "use strict";
 
 const { Op } = require("sequelize");
+const dayjs = require("dayjs");
+const utc = require("dayjs/plugin/utc");
+const timezone = require("dayjs/plugin/timezone");
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 module.exports = {
     async getCommonProblemsPercentageToday(ctx) {
@@ -10,13 +16,11 @@ module.exports = {
                 throw new Error("Company ID is required");
             }
             
-            const startOfDay = new Date();
-            startOfDay.setHours(startOfDay.getHours() - 25);
-            startOfDay.setMinutes(0, 0, 0);
-    
-            const endOfDay = new Date(startOfDay);
-            endOfDay.setHours(23, 59, 59, 999);
-    
+        const startOfDay = dayjs().tz('America/Tijuana').startOf('day').format('YYYY-MM-DD HH:mm:ss');
+        const endOfDay = dayjs().tz('America/Tijuana').endOf('day').format('YYYY-MM-DD HH:mm:ss');
+        console.log("Start of Day:", startOfDay);
+        console.log("End of Day:", endOfDay);
+        
             const result = await this.adapter.find({
                 query: {
                     company_id: companyId,
