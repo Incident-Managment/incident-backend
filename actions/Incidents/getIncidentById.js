@@ -25,13 +25,13 @@ module.exports = {
             const productionPhaseId = incident.production_phase_id;
 
             const [status, priority, category, user, machine, productionPhase, company] = await Promise.all([
-                ctx.call("statuses.get", { id: statusId }),
+                ctx.call("statuses.getStatuses", { id: statusId }),
                 ctx.call("priorities.get", { id: priorityId }),
                 ctx.call("categories.get", { id: categoryId }),
-                ctx.call("users.get", { id: userId }),
-                ctx.call("machines.get", { id: machineId }),
+                ctx.call("users.getUsersGlobal", { id: userId }),
+                ctx.call("machines.getMachinesGlobal", { id: machineId }),
                 ctx.call("production_phases.get", { id: productionPhaseId }),
-                ctx.call("companies.get", { id: incident.company_id })
+                ctx.call("companies.getCompaniesGlobal", { id: incident.company_id })
             ]);
 
             const incidentWithDetails = {
