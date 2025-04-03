@@ -20,10 +20,12 @@ module.exports = {
 
             const companyId = companyIds[0];
 
-            const incidents = await ctx.call("incidents.getIncidentsByCompany", { 
+            let incidents = await ctx.call("incidents.getIncidentsByCompany", { 
                 companyId,
                 where: { id: { in: incidentIds } } 
             });
+
+            incidents = incidents.filter(incident => incident.status.id !== 4);
 
             const statusIds = [...new Set(incidents.map(inc => inc.status.id))];
             const priorityIds = [...new Set(incidents.map(inc => inc.priority.id))];
