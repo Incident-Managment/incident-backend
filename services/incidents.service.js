@@ -20,7 +20,7 @@ const cancelIncidentAction = require("../actions/Incidents/cancellationIncidents
 const getIncidentsByDateRangeAction = require("../actions/Incidents/getIncidentsByDateRange");
 const downloadReportAction = require("../actions/Incidents/downloadReport");
 const createCommentsActions = require("../actions/Incidents/createCommentsIncidents");
-
+const getTechniqueCommentsByIncidentAction = require("../actions/Incidents/getTechniqueCommentsByIncident");
 module.exports = {
     name: "incidents",
     mixins: [DbService],
@@ -47,5 +47,6 @@ module.exports = {
         getIncidentsByDateRange: getIncidentsByDateRangeAction.getIncidentsByDateRange,
         downloadReport: downloadReportAction.downloadReport,
         createComments: createCommentsActions.createComments,
+        getTechniqueCommentsByIncident: getTechniqueCommentsByIncidentAction.getTechniqueCommentsByIncident,
     }
 };
