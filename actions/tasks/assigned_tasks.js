@@ -40,8 +40,8 @@ module.exports = {
             const message = `You have been assigned a new incident with ID: ${incident_id}`;
             console.log("Sending SMS to:", phoneNumber, "with message:", message);
             // Commenting out the SMS sending to avoid making requests
-            const smsResponse = await ctx.call("sendSMS.sendSMS", { to: phoneNumber, from: "6646141705", text: message });
-            console.log("SMS response:", smsResponse);
+            // const smsResponse = await ctx.call("sendSMS.sendSMS", { to: phoneNumber, from: "6646141705", text: message });
+            // console.log("SMS response:", smsResponse);
 
             return newAssignedTask;
         } catch (error) {
