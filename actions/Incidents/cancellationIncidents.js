@@ -11,16 +11,19 @@ module.exports = {
                 throw new Error("Incident not found");
             }
 
+            const now = new Date();
+            now.setHours(now.getHours() - 7);
+
             const updatedIncident = await this.adapter.updateById(incident_id, {
                 $set: {
                     status_id: 4,
-                    update_date: new Date()
+                    update_date: now
                 },
                 $push: {
                     comments: {
                         user_id,
                         comment: comments,
-                        date: new Date()
+                        date: now
                     }
                 }
             });

@@ -83,7 +83,8 @@ module.exports = {
                     name: company.name
                 },
                 creation_date: incident.creation_date,
-                update_date: incident.update_date
+                update_date: incident.update_date,
+                commentstechnique: incident.commentstechnique,
             }));
 
             incidentsWithDetails.sort((a, b) => a.id - b.id);

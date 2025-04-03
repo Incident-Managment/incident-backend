@@ -70,6 +70,7 @@ module.exports = {
                     "PUT /incidents/cancelIncident": "incidents.cancelIncident",
                     "POST /incidents/getIncidentsByDateRange": "incidents.getIncidentsByDateRange",
                     "GET /incidents/downloadReport": "incidents.downloadReport",
+                    "POST /incidents/createComments": "incidents.createComments",
                     /* TASKS */
                     "POST /tasks/create": "assigned_tasks.CreateAssignedTask",
                     "GET /assigned_tasks/findAssignedTasks": "assigned_tasks.findAssignedTasks",

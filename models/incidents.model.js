@@ -86,13 +86,17 @@ module.exports = {
         comments: {
             type: Sequelize.TEXT,
             allowNull: true
-        }
+        },
+        commentstechnique: {
+            type: Sequelize.JSON,
+            allowNull: true
+        },
     },
     options: {
         timestamps: false,
-        logging: false // Desactiva los logs
+        logging: false
     },
-    associations: function(models) {
+    associations: function (models) {
         this.belongsTo(models.statuses, { foreignKey: 'status_id', as: 'status' });
         this.belongsTo(models.priorities, { foreignKey: 'priority_id', as: 'priority' });
         this.belongsTo(models.categories, { foreignKey: 'category_id', as: 'category' });

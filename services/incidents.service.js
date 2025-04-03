@@ -19,6 +19,7 @@ const getCommonProblemsPercentageTodayAction = require("../actions/Incidents/com
 const cancelIncidentAction = require("../actions/Incidents/cancellationIncidents");
 const getIncidentsByDateRangeAction = require("../actions/Incidents/getIncidentsByDateRange");
 const downloadReportAction = require("../actions/Incidents/downloadReport");
+const createCommentsActions = require("../actions/Incidents/createCommentsIncidents");
 
 module.exports = {
     name: "incidents",
@@ -26,7 +27,7 @@ module.exports = {
     adapter: adapter,
     model: incidentsModel,
     settings: {
-        fields: ["id", "title", "description", "status_id", "priority_id", "category_id", "user_id", "machine_id", "company_id", "production_phase_id", "creation_date", "update_date", "comments"],
+        fields: ["id", "title", "description", "status_id", "priority_id", "category_id", "user_id", "machine_id", "company_id", "production_phase_id", "creation_date", "update_date", "comments", "commentstechnique"],
     },
     actions: {
         getIncidentsByCompany: getIncidentsByCompanyIdAction.getIncidentsByCompany,
@@ -44,6 +45,7 @@ module.exports = {
         getCommonProblemsPercentageToday: getCommonProblemsPercentageTodayAction.getCommonProblemsPercentageToday,
         cancelIncident: cancelIncidentAction.cancelIncident,
         getIncidentsByDateRange: getIncidentsByDateRangeAction.getIncidentsByDateRange,
-        downloadReport: downloadReportAction.downloadReport
+        downloadReport: downloadReportAction.downloadReport,
+        createComments: createCommentsActions.createComments,
     }
 };
