@@ -10,6 +10,8 @@ module.exports = {
         try {
             const incidents = await this.adapter.find({ query: { company_id: companyId } });
 
+            if (incidents.length === 0) return [];
+
             const statusIds = [...new Set(incidents.map(incident => incident.status_id))];
             const priorityIds = [...new Set(incidents.map(incident => incident.priority_id))];
             const categoryIds = [...new Set(incidents.map(incident => incident.category_id))];
@@ -19,57 +21,30 @@ module.exports = {
             const incidentIds = incidents.map(incident => incident.id);
 
             const [statuses, priorities, categories, users, machines, productionPhases, assignedTasks, company] = await Promise.all([
-                ctx.call("statuses.find", { id: statusIds }),
-                ctx.call("priorities.find", { id: priorityIds }),
-                ctx.call("categories.find", { id: categoryIds }),
-                ctx.call("users.find", { id: userIds }),
-                ctx.call("machines.getMachinesGlobal", { id: machineIds }),
-                ctx.call("production_phases.find", { id: productionPhaseIds }),
+                ctx.call("statuses.find", { query: { id: statusIds } }),
+                ctx.call("priorities.find", { query: { id: priorityIds } }),
+                ctx.call("categories.find", { query: { id: categoryIds } }),
+                ctx.call("users.find", { query: { id: userIds } }),
+                ctx.call("machines.getMachinesGlobal", { query: { id: machineIds } }),
+                ctx.call("production_phases.find", { query: { id: productionPhaseIds } }),
                 ctx.call("assigned_tasks.findAssignedTasks", { query: { incident_id: incidentIds } }),
                 ctx.call("companies.get", { id: companyId })
             ]);
 
-            const statusMap = statuses.reduce((acc, status) => {
-                acc[status.id] = status.name;
-                return acc;
-            }, {});
+            // Crear mapas para acceso rápido
+            const createMap = (array, keyField, valueField) =>
+                array.reduce((acc, item) => {
+                    acc[item[keyField]] = valueField ? item[valueField] : item;
+                    return acc;
+                }, {});
 
-            const priorityMap = priorities.reduce((acc, priority) => {
-                acc[priority.id] = priority.name;
-                return acc;
-            }, {});
-
-            const categoryMap = categories.reduce((acc, category) => {
-                acc[category.id] = category.name;
-                return acc;
-            }, {});
-
-            const userMap = users.reduce((acc, user) => {
-                acc[user.id] = { name: user.name, email: user.email };
-                return acc;
-            }, {});
-
-            const machineMap = machines.reduce((acc, machine) => {
-                acc[machine.id] = machine.name;
-                return acc;
-            }, {});
-
-            const productionPhaseMap = productionPhases.reduce((acc, phase) => {
-                acc[phase.id] = phase.name;
-                return acc;
-            }, {});
-
-            const assignedTaskMap = assignedTasks.reduce((acc, task) => {
-                acc[task.incident_id] = {
-                    id: task.id,
-                    assigned_user_id: task.assigned_user_id,
-                    company_id: task.company_id,
-                    assignment_date: task.assignment_date,
-                    createdAt: task.createdAt,
-                    updatedAt: task.updatedAt
-                };
-                return acc;
-            }, {});
+            const statusMap = createMap(statuses, "id", "name");
+            const priorityMap = createMap(priorities, "id", "name");
+            const categoryMap = createMap(categories, "id", "name");
+            const userMap = createMap(users, "id");
+            const machineMap = createMap(machines, "id", "name");
+            const productionPhaseMap = createMap(productionPhases, "id", "name");
+            const assignedTaskMap = createMap(assignedTasks, "incident_id");
 
             const incidentsWithDetails = incidents.map(incident => ({
                 id: incident.id,
@@ -87,11 +62,13 @@ module.exports = {
                     id: incident.category_id,
                     name: categoryMap[incident.category_id]
                 },
-                user: {
-                    id: incident.user_id,
-                    name: userMap[incident.user_id].name,
-                    email: userMap[incident.user_id].email
-                },
+                user: userMap[incident.user_id]
+                    ? {
+                          id: incident.user_id,
+                          name: userMap[incident.user_id].name,
+                          email: userMap[incident.user_id].email
+                      }
+                    : null,
                 machine: {
                     id: incident.machine_id,
                     name: machineMap[incident.machine_id]
