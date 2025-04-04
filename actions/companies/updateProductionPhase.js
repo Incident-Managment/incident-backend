@@ -8,8 +8,6 @@ module.exports = {
             throw new Error("ID is required");
         }
 
-        const existingPhases = await ctx.call("production_phases.find", {});
-
         const updateData = {};
         if (name !== undefined) updateData.name = name;
         if (is_active !== undefined) updateData.is_active = is_active;

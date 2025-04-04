@@ -12,9 +12,6 @@ module.exports = {
             throw new Error("Company ID is required");
         }
 
-        const existingPhases = await ctx.call("production_phases.find", {});
-
-
         const newPhase = {
             name,
             company_id,

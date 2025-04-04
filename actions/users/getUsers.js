@@ -9,8 +9,8 @@ module.exports = {
                 const companyIds = [...new Set(users.map(user => user.company_id))];
 
                 const [roles, companies] = await Promise.all([
-                    ctx.call("roles.find", { id: roleIds }),
-                    ctx.call("companies.find", { id: companyIds })
+                    ctx.call("roles.getRolesGlobal", { id: roleIds }),
+                    ctx.call("companies.getCompaniesGlobal", { id: companyIds })
                 ]);
 
                 const roleMap = roles.reduce((acc, role) => {
