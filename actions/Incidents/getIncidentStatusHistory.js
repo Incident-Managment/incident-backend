@@ -15,7 +15,7 @@ module.exports = {
 
             const [statuses, users] = await Promise.all([
                 ctx.call("statuses.find", { id: statusIds }),
-                ctx.call("users.find", { id: userIds })
+                ctx.call("users.getUsersGlobal", { id: userIds })
             ]);
 
             const statusMap = statuses.reduce((acc, status) => {
@@ -24,7 +24,7 @@ module.exports = {
             }, {});
 
             const userMap = users.reduce((acc, user) => {
-                acc[user.id] = { name: user.name, email: user.email };
+                acc[user.id] = { id: user.id, name: user.name, email: user.email };
                 return acc;
             }, {});
 
@@ -41,7 +41,7 @@ module.exports = {
                 },
                 comment: history.comment,
                 user: {
-                    id: history.user_id,
+                    id: userMap[history.user_id].id,
                     name: userMap[history.user_id].name,
                     email: userMap[history.user_id].email
                 },
